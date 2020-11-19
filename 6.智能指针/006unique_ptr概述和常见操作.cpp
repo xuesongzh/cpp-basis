@@ -1,81 +1,72 @@
-#include<iostream>
-#include<cstdlib>
-#include<string>
-#include<vector>
+#include <cstdlib>
+#include <iostream>
 #include <memory>
+#include <string>
+#include <vector>
 
 using namespace std;
 
-class A
-{
-public:
-	A(){}
-	~A()
-	{
-		;
-	}
+class A {
+  public:
+    A() {}
+    ~A() {
+        ;
+    }
 };
 
-auto myFunction()
-{
-	return unique_ptr<string>(new string("jisuanjiz"));//这是个右值
-	//临时对象都是右值
+auto myFunction() {
+    return unique_ptr<string>(new string("jisuanjiz"));  //这是个右值
+                                                         //临时对象都是右值
 }
 
-int main(void)
-{
-	unique_ptr<int>p1;//指向一个空指针
-	if (p1==nullptr)
-	{
-		cout << "p1是空指针" << endl;
+int main(void) {
+    unique_ptr<int> p1;  //指向一个空指针
+    if (p1 == nullptr) {
+        cout << "p1是空指针" << endl;
+    }
+    unique_ptr<int> p2(new int(34354));  //p2指向一个值为34354的int对象
+    //make_unique c++14中引入，不需要指定删除器的时候选择这个
+    unique_ptr<int> p3 = make_unique<int>(234);
+    auto p4 = make_unique<int>(200);  //p4是一个智能指针
 
-	}
-	unique_ptr<int>p2(new int(34354));//p2指向一个值为34354的int对象
-	//make_unique c++14中引入，不需要指定删除器的时候选择这个
-	unique_ptr<int>p3 = make_unique<int>(234);
-	auto p4 = make_unique<int>(200);//p4是一个智能指针
+    //2.1
+    unique_ptr<string> p5(new string("jisuanjizuchengyaunli"));
+    //智能指针不支持拷贝动作,也不支持赋值操作
+    //unique_ptr<string> p6(p5);//error
+    //unique_ptr<string>p7 = p5;//error
 
-	//2.1
-	unique_ptr<string>p5(new string("jisuanjizuchengyaunli"));
-	//智能指针不支持拷贝动作,也不支持赋值操作
-	//unique_ptr<string> p6(p5);//error
-	//unique_ptr<string>p7 = p5;//error
+    //2.2移动语义
+    unique_ptr<string> p8 = std::move(p5);  //p5为空，p8指向原来的内存空间
 
-	//2.2移动语义
-	unique_ptr<string>p8 = std::move(p5);//p5为空，p8指向原来的内存空间
+    //2.3 release()释放
+    unique_ptr<string> p9(p5.release());  //使用p5的裸指针来初始化p9
+    string *p10 = p9.release();
+    delete p10;  //一旦release()就需要手工释放
 
-	//2.3 release()释放
-	unique_ptr<string>p9(p5.release());//使用p5的裸指针来初始化p9
-	string *p10 = p9.release();
-	delete p10;//一旦release()就需要手工释放
-	
-	//2.4
-	unique_ptr<string>p11(new string("dsfsdf"));
-	//p11.reset();//释放内存空间，
-	p11.reset(p5.release());//release释放p5指向的内存空间的联系，同时p11指向这个空间
-	
-	//2.5nullptr
-	unique_ptr<int>p12(new int(234));
-	p12 = nullptr;
+    //2.4
+    unique_ptr<string> p11(new string("dsfsdf"));
+    //p11.reset();//释放内存空间，
+    p11.reset(p5.release());  //release释放p5指向的内存空间的联系，同时p11指向这个空间
 
-	//*2.6指向一个数组
-	unique_ptr<int[]>pArray(new int[123]);
-	pArray[0] = 0;
-	pArray[1] = 0;
+    //2.5nullptr
+    unique_ptr<int> p12(new int(234));
+    p12 = nullptr;
 
-	unique_ptr<A[]>pAA(new A[10]);//当有自己的析构函数<>里面必须加上[]，否则会报异常
+    //*2.6指向一个数组
+    unique_ptr<int[]> pArray(new int[123]);
+    pArray[0] = 0;
+    pArray[1] = 0;
 
-	//2.7get() 返回智能指针中返回的裸指针
-	//注意得到裸指针不要释放内存空间，让智能指针自己释放更好，否则会释放2次出错
-	
-	
+    unique_ptr<A[]> pAA(new A[10]);  //当有自己的析构函数<>里面必须加上[]，否则会报异常
 
-	//2.11 转换成shared_ptr类型，转换后赋值
-	shared_ptr<string>p13 = myFunction();
+    //2.7get() 返回智能指针中返回的裸指针
+    //注意得到裸指针不要释放内存空间，让智能指针自己释放更好，否则会释放2次出错
 
-	
-	system("pause");
-	return 0;
+    //2.11 转换成shared_ptr类型，转换后赋值
+    shared_ptr<string> p13 = myFunction();
+
+    system("pause");
+    return 0;
 }
 
 /*

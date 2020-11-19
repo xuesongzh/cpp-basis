@@ -1,48 +1,45 @@
-#include<iostream>
-#include<cstdlib>
-#include<string>
-#include<vector>
+#include <cstdlib>
+#include <iostream>
 #include <memory>
+#include <string>
+#include <vector>
 
 using namespace std;
 
-shared_ptr<int> testFunction(int value)
-{
-	//return new int();//error，不可以将new得到的int*类型转换为shared_ptr
-	return shared_ptr<int>(new int(value));//OK，强制类型转换
+shared_ptr<int> testFunction(int value) {
+    //return new int();//error，不可以将new得到的int*类型转换为shared_ptr
+    return shared_ptr<int>(new int(value));  //OK，强制类型转换
 }
 
-int main(void)
-{
-	//shared_ptr指针用法
-	shared_ptr<int>p1(new int(100));//p1指向值为100的int类型内存空间
-									//shared_ptr<int>p2 = new int(100);//error智能指针是explicit,不可以进行隐式类型转换，
-									//=一般用于隐式类型zhuanhaun
+int main(void) {
+    //shared_ptr指针用法
+    shared_ptr<int> p1(new int(100));  //p1指向值为100的int类型内存空间
+                                       //shared_ptr<int>p2 = new int(100);//error智能指针是explicit,不可以进行隐式类型转换，
+                                       //一般用于隐式类型转换
 
+    //返回值是shared_ptr
+    shared_ptr<int> p2 = testFunction(234);
 
-									//返回值是shared_ptr
-	shared_ptr<int> p2 = testFunction(234);
+    //裸指针可以初始化shared_ptr,但是不推荐
+    string* s1 = new string("23432434");
+    shared_ptr<string> s2(s1);
+    //建议使用
+    shared_ptr<string> s3(new string("sdfdsf"));
 
-	//裸指针可以初始化shared_ptr,但是不推荐
-	string* s1 = new string("23432434");
-	shared_ptr<string>s2(s1);
-	//建议使用
-	shared_ptr<string>s3(new string("sdfdsf"));
+    //空的shared_ptr指针
+    shared_ptr<int> p3;  //指向int的智能指针，但还是目前为空==nullptr
 
-	//空的shared_ptr指针
-	shared_ptr<int>p3;//指向int的智能指针，但还是目前为空==nullptr
-
-					  //(3)make_shared
-	shared_ptr<int>p4 = make_shared<int>(1345);//shared_ptr指向一个值为100的整形内存空间。
-	shared_ptr<string>p5 = make_shared<string>(5, 'a');//p5指向aaaaa的字符串内存空间
-	shared_ptr<int>p6 = make_shared<int>();//p6指向一段内存空间int=0
-	p6 = make_shared<int>(1000);
-	/*p6指向一段新的int，先释放指向0的内存空间，然后指向int值为1000的内存空间。
+    //(3)make_shared
+    shared_ptr<int> p4 = make_shared<int>(1345);          //shared_ptr指向一个值为100的整形内存空间。
+    shared_ptr<string> p5 = make_shared<string>(5, 'a');  //p5指向aaaaa的字符串内存空间
+    shared_ptr<int> p6 = make_shared<int>();              //p6指向一段内存空间int=0
+    p6 = make_shared<int>(1000);
+    /*p6指向一段新的int，先释放指向0的内存空间，然后指向int值为1000的内存空间。
 	*
 	*/
 
-	system("pause");
-	return 0;
+    system("pause");
+    return 0;
 }
 
 /*

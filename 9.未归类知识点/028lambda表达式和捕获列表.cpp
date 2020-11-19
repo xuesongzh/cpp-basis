@@ -1,62 +1,55 @@
-#include<iostream>
-#include<cstdlib>
+#include <cstdlib>
+#include <iostream>
 
 using namespace std;
 
-class CT
-{
-public:
-	int m_i;
-	void myFunction(int x,int y)
-	{
-		auto mylambda01 = [this]()//=或者&默认就有this访问
-		{
-			return m_i;//因为前面已经有this，访问合法
-		};
-	}
+class CT {
+  public:
+    int m_i;
+    void myFunction(int x, int y) {
+        auto mylambda01 = [this]()  //=或者&默认就有this访问
+        {
+            return m_i;  //因为前面已经有this，访问合法
+        };
+    }
 };
 
-int main(void)
-{
-	auto f=[](int a=45)->int//后置返回类型  ，并且擦拭农户可以有默认值
-	{
-		return a + 1;
-	};//这里必须有分号
-	//调用lambda表达式
-	cout << f(12) << endl;//13
+int main(void) {
+    auto f = [](int a = 45) -> int  //后置返回类型  ，并且擦拭农户可以有默认值
+    {
+        return a + 1;
+    };  //这里必须有分号
+    //调用lambda表达式
+    cout << f(12) << endl;  //13
 
-	static int numnber01 = 12;
-	auto f1=[]()
-	{
-		return  numnber01;//需要捕获前面定义的number01,可以直接捕获静态局变量
-	};
-	//[&]
-	int number02 = 02;
-	auto f2=[&]()
-	{
-		number02++;
-		return number02;
-	};
-	cout << f2() << endl;//3
-	//2.3 [=]
-	auto f3 = [=]()
-	{
-		cout << number02 << endl;
-		//number02 = 12;//error 不能修改
-	};
-	//2.4[this]
-	CT ct;
-	ct.myFunction(3, 4);
+    static int numnber01 = 12;
+    auto f1 = []() {
+        return numnber01;  //需要捕获前面定义的number01,可以直接捕获静态局变量
+    };
+    //[&]
+    int number02 = 02;
+    auto f2 = [&]() {
+        number02++;
+        return number02;
+    };
+    cout << f2() << endl;  //3
+    //2.3 [=]
+    auto f3 = [=]() {
+        cout << number02 << endl;
+        //number02 = 12;//error 不能修改
+    };
+    //2.4[this]
+    CT ct;
+    ct.myFunction(3, 4);
 
-	//2.5[变量名字1，变量名字2...]
-	int number03 = 3;
-	auto f4 = [number02]()
-	{
-		cout << number02 << endl;
-		//cout << number03 << endl;//error
-	};
-	system("pause");
-	return 0;
+    //2.5[变量名字1，变量名字2...]
+    int number03 = 3;
+    auto f4 = [number02]() {
+        cout << number02 << endl;
+        //cout << number03 << endl;//error
+    };
+    system("pause");
+    return 0;
 }
 
 /*lambda表达式和捕获列表

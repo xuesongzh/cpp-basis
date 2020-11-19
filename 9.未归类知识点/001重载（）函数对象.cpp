@@ -1,62 +1,53 @@
-#include<iostream>
-#include<cstdlib>
+#include <cstdlib>
+#include <iostream>
 
 using namespace std;
 
-void myFunction(int a_i)
-{
-	cout << "这是我自定义的函数myFunction" << endl;
-	return;
+void myFunction(int a_i) {
+    cout << "这是我自定义的函数myFunction" << endl;
+    return;
 }
 
 //类实现的功能：返回一个大于等于0的数字，如果小于0，返回0
-class BiggerThanZero
-{
-public:
-	//带一个参数的构造函数
-	BiggerThanZero(int a):m_i(a)
-	{
-		m_i = a;
-	}
-	
-public:
-	//重载()函数调用运算符
-	int operator()(int value)const
-	{
-		if (value<=0)
-		{
-			return 0;
-		}
-		else
-		{
-			return value;
-		}
-	}
+class BiggerThanZero {
+  public:
+    //带一个参数的构造函数
+    BiggerThanZero(int a) : m_i(a) {
+        m_i = a;
+    }
 
-	int operator()(int a,int b)const
-	{
-		return 1;
-	}
-private:
-	int m_i;
+  public:
+    //重载()函数调用运算符
+    int operator()(int value) const {
+        if (value <= 0) {
+            return 0;
+        } else {
+            return value;
+        }
+    }
+
+    int operator()(int a, int b) const {
+        return 1;
+    }
+
+  private:
+    int m_i;
 };
 
-int main(void)
-{
-	myFunction(3);//()--函数调用运算符
+int main(void) {
+    myFunction(3);  //()--函数调用运算符
 
-	//类中重载函数调用运算符
-	BiggerThanZero b1(23);//重载了函数调用运算符的对象,这里是对象定义并初始化（因为前面有类名），所以调用的是构造函数
-	int number01=b1(-34);
-	//重载的函数，operator 运算符就是函数名字  operator ()
-	int number02 = b1.operator()(-45);
+    //类中重载函数调用运算符
+    BiggerThanZero b1(23);  //重载了函数调用运算符的对象,这里是对象定义并初始化（因为前面有类名），所以调用的是构造函数
+    int number01 = b1(-34);
+    //重载的函数，operator 运算符就是函数名字  operator ()
+    int number02 = b1.operator()(-45);
 
-	//重载函数调用运算符--两个参数
-	int number03 = b1(12, 33);
-	
-	
-	system("pause");
-	return 0;
+    //重载函数调用运算符--两个参数
+    int number03 = b1(12, 33);
+
+    system("pause");
+    return 0;
 }
 /*
  *(1)学习c++体会、总数

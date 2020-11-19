@@ -1,61 +1,54 @@
-#include<iostream>
-#include<cstdlib>
-#include<string>
-#include<vector>
+#include <cstdlib>
+#include <iostream>
 #include <memory>
+#include <string>
+#include <vector>
 
 using namespace std;
 
-
-unique_ptr<string>myFunction()
-{
-	unique_ptr<string>pr(new string("dsfsdf"));
-	return  pr;
-	/*
+unique_ptr<string> myFunction() {
+    unique_ptr<string> pr(new string("dsfsdf"));
+    return pr;
+    /*
 	 * 从函数返回一个局部对象，系统给我们生成一个临时unique_ptr对象，调用unique_ptr的移动构造函数
 	 * 
 	 */
 }
 
-void myDelete(string *pdel)
-{
-	delete pdel;
-	pdel = nullptr;
+void myDelete(string *pdel) {
+    delete pdel;
+    pdel = nullptr;
 }
-typedef void(*myf)(string *);
+typedef void (*myf)(string *);
 //定义函数指针类型 using myf=void(*)(string*)
 //typedef decltype(myDelete)*myf;
 
 //lambda表达式
-auto mydel=[](string*del)
-{
-	delete del;
-	del = nullptr;
+auto mydel = [](string *del) {
+    delete del;
+    del = nullptr;
 };
 
+int main(void) {
+    unique_ptr<string> p1;
+    p1 = myFunction();  //临时对象直接构造在p1中。不接受会释放掉临时对象及其所指向的内存空间。
 
-int main(void)
-{
-	unique_ptr<string> p1;
-	p1 = myFunction();//临时对象直接构造在p1中。不接受会释放掉临时对象及其所指向的内存空间。
+    //指定删除器--取代系统默认的删除器
+    unique_ptr<string, myf> p2(new string("jisuanj"), myDelete);
 
+    //另一种写法
+    unique_ptr<string, decltype(myDelete) *> p3(new string("jisann"), myDelete);
+    //用lambda表达式来写，可以理解成带有operator()类型的类对象
+    unique_ptr<string, decltype(mydel)> p4(new string("sdfdsf"), mydel);
 
-	//指定删除器--取代系统默认的删除器
-	unique_ptr<string, myf> p2(new string("jisuanj"), myDelete);
+    //unque_ptr和裸指针相同
+    string *p = nullptr;
+    cout << sizeof(p) << endl;  //4
+    unique_ptr<string> p5(new string("sdf"));
+    cout << sizeof(p5) << endl;  //4
 
-	//另一种写法
-	unique_ptr<string, decltype(myDelete)*>p3(new string("jisann"), myDelete);
-	//用lambda表达式来写，可以理解成带有operator()类型的类对象
-	unique_ptr<string, decltype(mydel)>p4(new string("sdfdsf"), mydel);
-	
-	//unque_ptr和裸指针相同
-	string *p = nullptr;
-	cout << sizeof(p) << endl;//4
-	unique_ptr<string>p5(new string("sdf"));
-	cout << sizeof(p5) << endl;//4
-	
-	system("pause");
-	return 0;
+    system("pause");
+    return 0;
 }
 
 /*

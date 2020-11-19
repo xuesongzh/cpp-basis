@@ -1,28 +1,26 @@
-#include<iostream>
-#include<iostream>
-#include<cstdlib>
-#include<functional>
-#include <vector>
 #include <algorithm>
+#include <cstdlib>
+#include <functional>
+#include <iostream>
+#include <vector>
 using namespace std;
-std::vector<void(*)(int)>gv2;//用于存放一个int类型参数，返回值是void类型的lambda表达式
+std::vector<void (*)(int)> gv2;  //用于存放一个int类型参数，返回值是void类型的lambda表达式
 
-int main(void)
-{
-	static int temvalue = 4;
-	gv2.push_back([](int value)//静态局部变量可以直接使用
-	{
-		cout << temvalue << endl;
-		temvalue++;
-	});
-	
-	gv2[0](12);//4
-	gv2[0](123);//5
-	gv2[0](123);//6
-	
-	system("pause");
-	
-	return 0;
+int main(void) {
+    static int temvalue = 4;
+    gv2.push_back([](int value)  //静态局部变量可以直接使用
+                  {
+                      cout << temvalue << endl;
+                      temvalue++;
+                  });
+
+    gv2[0](12);   //4
+    gv2[0](123);  //5
+    gv2[0](123);  //6
+
+    system("pause");
+
+    return 0;
 }
 /*
 * (1)lambda中不捕获静态局部变量

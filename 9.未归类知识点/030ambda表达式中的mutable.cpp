@@ -1,19 +1,17 @@
-#include<iostream>
-#include<cstdlib>
+#include <cstdlib>
+#include <iostream>
 
 using namespace std;
 
-int main(void)
-{
-	int x = 10;
-	auto f1 = [=]()mutable //加上mutable可以更改x的值，虽然是按值捕获的x
-	{
-		x = 234;
-	};
-	
-	
-	system("pause");
-	return 0;
+int main(void) {
+    int x = 10;
+    auto f1 = [=]() mutable  //加上mutable可以更改x的值，虽然是按值捕获的x
+    {
+        x = 234;
+    };
+
+    system("pause");
+    return 0;
 }
 /*
 * (1)ambda表达式中的mutable

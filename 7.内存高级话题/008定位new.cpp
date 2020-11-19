@@ -1,67 +1,56 @@
-#include<iostream>
-#include<cstdlib>
-#include<string>
-#include<vector>
+#include <array>
+#include <cstdlib>
+#include <iostream>
+#include <list>
+#include <map>
 #include <memory>
 #include <set>
-#include <map>
-#include <list>
-#include <array>
+#include <string>
+#include <vector>
 
 using namespace std;
 
-void *operator new(size_t size)
-{
-	return  malloc(size);
+void *operator new(size_t size) {
+    return malloc(size);
 }
 
+class A {
+  public:
+    A() {
+        cout << "调用类A的无参构造函数" << endl;
+    }
+    A(int m) : m_a(m) {
+        cout << "调用有参数构造函数" << endl;
+    }
 
+    ~A() {
+        cout << "调用类A的析构函数" << endl;
+    }
+    //定位new重载
+    void *operator new(size_t size, void *pHead) {
+        return pHead;  //收到原始地址，返回即可
+    }
 
-class A
-{
-public:
-	A()
-	{
-		cout << "调用类A的无参构造函数" << endl;
-	}
-	A(int m):m_a(m)
-	{
-		cout << "调用有参数构造函数" << endl;
-	}
-
-	~A()
-	{
-		cout << "调用类A的析构函数" << endl;
-	}
-	//定位new重载
-	void *operator new(size_t size,void*pHead)
-	{
-		return  pHead;//收到原始地址，返回即可
-	}
-
-public:
-	int m_a;
-
+  public:
+    int m_a;
 };
 
-int main(void)
-{
-	//(1)
-	void *myPlaceNew = (void*)new char[sizeof(A)];//内存必须先分配出来
-	A*myA = new (myPlaceNew)A();//调用无参构造函数，在myPlaceNew构造对象
-	
-	void *myPlaceNew02 = (void*)new char[sizeof(A)];
-	A*myA02 = new (myPlaceNew02)A(2);//调用有参数构造函数在myPlaceNew构造对象
+int main(void) {
+    //(1)
+    void *myPlaceNew = (void *)new char[sizeof(A)];  //内存必须先分配出来
+    A *myA = new (myPlaceNew) A();                   //调用无参构造函数，在myPlaceNew构造对象
 
-	//怎么析构
-	myA->~A();//构造函数不可以手动调用，析构函数可以手动调用
-	myA02->~A();
-	delete[](void*)myA;
-	delete[](void*)myA02;
+    void *myPlaceNew02 = (void *)new char[sizeof(A)];
+    A *myA02 = new (myPlaceNew02) A(2);  //调用有参数构造函数在myPlaceNew构造对象
 
+    //怎么析构
+    myA->~A();  //构造函数不可以手动调用，析构函数可以手动调用
+    myA02->~A();
+    delete[](void *) myA;
+    delete[](void *) myA02;
 
-	system("pause");
-	return 0;
+    system("pause");
+    return 0;
 }
 
 /*

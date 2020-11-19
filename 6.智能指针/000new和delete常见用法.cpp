@@ -1,42 +1,34 @@
-#include<iostream>
-#include<cstdlib>
-#include<string>
-#include<vector>
+#include <cstdlib>
+#include <iostream>
+#include <string>
+#include <vector>
 
 using namespace std;
 
+int main(void) {
+    static int j = 23;  //局部静态对象，在静态区分配内存
 
+    int i = 10;                       //由系统进行分配和释放
+    int *p1 = new int;                //动态内存分配，初值未定义
+    string *s1 = new string;          //空字符串，系统调用string默认的构造函数
+    string *s2 = new string(5, 'a');  //aaaaa
 
-int main(void)
-{
-	static  int j = 23;//局部静态对象，在静态区分配内存
+    vector<int> *pointVector = new vector<int>{1, 2, 3, 4, 5};  //注意这种类型是存放int的vector*类型
 
-	int i = 10;//由系统进行分配和释放
-	int *p1 = new int;//动态内存分配，初值未定义
-	string *s1 = new string;//空字符串，系统调用string默认的构造函数
-	string *s2 = new string(5, 'a');//aaaaa
+    //值初始化
+    string *s3 = new string();  //用空括号来初始化就叫值初始化
+    int *p2 = new int();        //值为0，不是未定
+    //new创建对象的时候，能够进行“值初始化”就进行初始化，防止没有初始化出现问题
+    //
+    //c++11中，auto可以和new配合使用
+    string *s4 = new string("jisuanjizu");
+    auto s5 = new auto(s4);  //s4,s5指向同一段内存 s5是string**类型 指针的指针
 
+    //const对象也可以动态分配
+    const int *p4 = new const int(200);
 
-	vector<int>* pointVector = new vector<int>{ 1,2,3,4,5 };//注意这种类型是存放int的vector*类型
-	
-
-	//值初始化
-	string *s3 = new string();//用空括号来初始化就叫值初始化
-	int *p2 = new int();//值为0，不是未定
-	//new创建对象的时候，能够进行“值初始化”就进行初始化，防止没有初始化出现问题
-	//
-	//c++11中，auto可以和new配合使用
-	string *s4 = new string("jisuanjizu");
-	auto s5 = new auto(s4);//s4,s5指向同一段内存 s5是string**类型 指针的指针
-
-
-	//const对象也可以动态分配
-	const int*p4 = new const int(200);
-
-
-	
-	system("pause");
-	return 0;
+    system("pause");
+    return 0;
 }
 
 /*

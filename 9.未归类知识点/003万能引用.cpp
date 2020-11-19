@@ -1,18 +1,18 @@
-#include<iostream>
-#include<cstdlib>
+#include <cstdlib>
+#include <iostream>
 
 using namespace std;
 
 template <typename T>
-void myFunction(const T&value)//value的类型是const T&
+void myFunction(const T& value)  //value的类型是const T&
 {
-	return;
+    return;
 }
 
-void myFunction02(int&& tem)//参数是右值引用类型
+void myFunction02(int&& tem)  //参数是右值引用类型
 {
-	cout << "右值引用函数" << endl;
-	return;
+    cout << "右值引用函数" << endl;
+    return;
 }
 
 /*修改函数模板后，tem既可以接受左值，又可以接受右值。
@@ -21,64 +21,59 @@ void myFunction02(int&& tem)//参数是右值引用类型
 *传递左值，编译器推断为T&类型 int&
 *传递右值，编译器推断为T&&类型 int&&
 */
-template<typename T1>
+template <typename T1>
 //void myFunction03(const T1 &&tem)
-void myFunction03(T1 &&tem)//&&属于tem类型的一部分，&&和T类型没有关系
+void myFunction03(T1&& tem)  //&&属于tem类型的一部分，&&和T类型没有关系
 {
-	cout << "右值引用模板函数" << endl;
-	return;
+    cout << "右值引用模板函数" << endl;
+    return;
 }
 
 //类模板
-template<typename T2>
-class myTest
-{
-public:
-	void testFunction(T&& tem)//这个是右值引用
-	{
-		
-	}
+template <typename T2>
+class myTest {
+  public:
+    void testFunction(T&& tem)  //这个是右值引用
+    {
+    }
 
-	template<typename T3>
-	void testFunction02(T3&& tem)//这个是万能引用
-	{
-		
-	}
+    template <typename T3>
+    void testFunction02(T3&& tem)  //这个是万能引用
+    {
+    }
 };
 
-int main(void)
-{
-	myFunction(12);//T是什么类型，value是什么类型？  T和value的类型往往不同。
-	/*
+int main(void) {
+    myFunction(12);  //T是什么类型，value是什么类型？  T和value的类型往往不同。
+    /*
 	 * T是int类型，value的类型是const int&类型
 	 * 调用函数模板时候给的参数10会对T的类型产生影响。
 	 * value的类型会对T的类型产生影响。--value的类型为万能引用，就会对T类型产生影响
 	 */
 
-	//(2)右值引用&&
-	int&&number01 = 23;
-	myFunction02(123);
-	//myFunction02(number01);//error number01是一个左值
+    //(2)右值引用&&
+    int&& number01 = 23;
+    myFunction02(123);
+    //myFunction02(number01);//error number01是一个左值
 
-	myFunction03(123);
-	myFunction03(number01);//函数模板时候可以传递左值
-	
-	int number02 = 12;
-	myFunction03(number02);//int&&右值引用类型
+    myFunction03(123);
+    myFunction03(number01);  //函数模板时候可以传递左值
 
-	//其他万能引用 auto
-	auto &&number03 = 234;
+    int number02 = 12;
+    myFunction03(number02);  //int&&右值引用类型
 
+    //其他万能引用 auto
+    auto&& number03 = 234;
 
-	//(5)
-	myTest<int>mt;
-	int i = 100;
-	//mt.testFunction(i);//error，因为定义对象的时候已经指定类型为int，里面不存在类型模板参数。本身没有涉及到类型推断。
-	//类模板实例化后，成员函数有具体类型，这里为void testFunction(int&& tem)。
-	
-	cout << "helloWorld" << endl;
-	system("pause");
-	return 0;
+    //(5)
+    myTest<int> mt;
+    int i = 100;
+    //mt.testFunction(i);//error，因为定义对象的时候已经指定类型为int，里面不存在类型模板参数。本身没有涉及到类型推断。
+    //类模板实例化后，成员函数有具体类型，这里为void testFunction(int&& tem)。
+
+    cout << "helloWorld" << endl;
+    system("pause");
+    return 0;
 }
 
 /*

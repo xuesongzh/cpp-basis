@@ -1,45 +1,39 @@
-#include<iostream>
-#include<cstdlib>
-#include<string>
-#include<vector>
+#include <array>
+#include <cstdlib>
+#include <iostream>
+#include <list>
+#include <map>
 #include <memory>
 #include <set>
-#include <map>
-#include <list>
-#include <array>
+#include <string>
+#include <vector>
 
 using namespace std;
 
-class A
-{
-public:
-	A()
-	{
-	;
-	}
+class A {
+  public:
+    A() {
+        ;
+    }
 
-public:
-	int m_i;
-
+  public:
+    int m_i;
 };
 
-int main(void)
-{
-	char*p1 = new char[10];
-	
+int main(void) {
+    char* p1 = new char[10];
 
-	memset(p1, 0, 10);
-	delete[]p1;
-	/*演示释放1个字节：
+    memset(p1, 0, 10);
+    delete[] p1;
+    /*演示释放1个字节：
 	 *
 	 * 一块内存的回收影响范围不仅仅是分配大小的内存，前后内存都会受影响。
 	 * 分配内存的时候有进行进行内存管理的占用的内存，如记录内存的大小等占用的内存，也需要释放。
 	 */
 
-
-	int*p2 = new int(100);
-	delete p2;
-	/*跟踪调试，发现在分配内存保存数据（0x64）前面有04记录分配内存的大小。
+    int* p2 = new int(100);
+    delete p2;
+    /*跟踪调试，发现在分配内存保存数据（0x64）前面有04记录分配内存的大小。
 	 *  0x0038CFC4  00 00 00 00 01 00 00 00 04 00 00 00 44 00 00 00 fd fd fd fd  ............D...????
 		0x0038CFD8  64 00 00 00 fd fd fd fd 52 78 b2 55 08 94 00 03 90 00 36 00  d...????Rx?U.?..?.6.
 
@@ -48,9 +42,8 @@ int main(void)
 		分配内存时候为了记录和管理内存，额外多分配了不少内存，造成浪费，尤其是频繁申请小块内存，造成的浪费更加明显。
 	 */
 
-	
-	system("pause");
-	return 0;
+    system("pause");
+    return 0;
 }
 
 /*

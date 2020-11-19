@@ -1,29 +1,26 @@
-#include<iostream>
-#include<cstdlib>
-
 #include <boost/type_index.hpp>
+#include <cstdlib>
+#include <iostream>
 
 using namespace std;
 
 //显示参数类型，这里不研究boost库
-template<typename T>
-void myFunction01(T&tem)//T是类型模板参数，T是有类型的,tem是形参，tem也是有类型的
+template <typename T>
+void myFunction01(T &tem)  //T是类型模板参数，T是有类型的,tem是形参，tem也是有类型的
 {
-	using boost::typeindex::type_id_with_cvr;
-	cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;//显示T类型
-	cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;//显示T类型
-
+    using boost::typeindex::type_id_with_cvr;
+    cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;                //显示T类型
+    cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;  //显示T类型
 }
 
-int main(void)
-{
-	int number01 = 18;
-	const int number02 = number01;
-	const int&number03 = number01;
-	myFunction01(number01);//T=int  tem=int&类型
-	myFunction01(number02);//T=int const tem=const int&
-	myFunction01(number03);//T=int const tem=const int& 引用会被忽略，传递不过去
-	/*
+int main(void) {
+    int number01 = 18;
+    const int number02 = number01;
+    const int &number03 = number01;
+    myFunction01(number01);  //T=int  tem=int&类型
+    myFunction01(number02);  //T=int const tem=const int&
+    myFunction01(number03);  //T=int const tem=const int& 引用会被忽略，传递不过去
+    /*
 	T type=int
 	tem type=int &
 	T type=int const
@@ -32,38 +29,32 @@ int main(void)
 	tem type=int const &
 	 */
 
-	// (1)auto类型常规推断
-	auto number04 = 23;//number04是int类型，auto是int类型占位符
-	
-	//1.指针或者引用类型，但不是万能引用
-	const auto&number07 = number01;  //auto =int,number07=const int&
-	auto number08 = number07;//传值方式，引用和const属性会被抛弃，把对方当作新副本， number08=int ,auto =int
-	auto &number09 = number07;//auto =const int		number09=const int&  引用属性被丢弃，const属性被保留
-	const auto*p1 = &number01;//auto =int		p1=const int*
-	auto*p2 = &number01;//auto=int	p2=int*
-	auto p3 = &number01;//auto=int*	p3=int*
-	
+    // (1)auto类型常规推断
+    auto number04 = 23;  //number04是int类型，auto是int类型占位符
 
- 
-	
-	//2.万能引用类型  --函数模板万能引用是T&&   auto万能引用是auto&&
-	auto&&number11 = number01;//number11是左值，auto =int&,number11=int&,这里产生引用折叠
-	const auto number12 = 234;
-	auto&&number13 = number12;//auto=int&，number13=const int&
-	auto&&number14 = 234;//赋值是右值  --auto=int,number14=int&&
-	
+    //1.指针或者引用类型，但不是万能引用
+    const auto &number07 = number01;  //auto =int,number07=const int&
+    auto number08 = number07;         //传值方式，引用和const属性会被抛弃，把对方当作新副本， number08=int ,auto =int
+    auto &number09 = number07;        //auto =const int		number09=const int&  引用属性被丢弃，const属性被保留
+    const auto *p1 = &number01;       //auto =int		p1=const int*
+    auto *p2 = &number01;             //auto=int	p2=int*
+    auto p3 = &number01;              //auto=int*	p3=int*
 
-	
-	//3.传值方式，非指针，非引用--
-	auto number05 = 234;
-	const auto number06 = number05;//auto =int number06=const int
- 
+    //2.万能引用类型  --函数模板万能引用是T&&   auto万能引用是auto&&
+    auto &&number11 = number01;  //number11是左值，auto =int&,number11=int&,这里产生引用折叠
+    const auto number12 = 234;
+    auto &&number13 = number12;  //auto=int&，number13=const int&
+    auto &&number14 = 234;       //赋值是右值  --auto=int,number14=int&&
 
-	//auto可以使用new操作符
-	auto number10 = new auto(2343);//auto=int
-	
-	system("pause");
-	return 0;
+    //3.传值方式，非指针，非引用--
+    auto number05 = 234;
+    const auto number06 = number05;  //auto =int number06=const int
+
+    //auto可以使用new操作符
+    auto number10 = new auto(2343);  //auto=int
+
+    system("pause");
+    return 0;
 }
 /*
 * (1)auto类型常规推断

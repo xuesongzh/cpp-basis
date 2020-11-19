@@ -1,150 +1,132 @@
-#include<iostream>
-#include<cstdlib>
-#include<string>
-#include<vector>
+#include <cstdlib>
+#include <iostream>
 #include <memory>
+#include <string>
+#include <vector>
 
 using namespace std;
 
-class A
-{
-public:
-	A()
-	{}
-	~A()
-	{
-		
-	}
+class A {
+  public:
+    A() {}
+    ~A() {
+    }
 };
 
 //void myfunction(shared_ptr<int>&myp)//使用引用，引用计数不会增加
-void myfunction(shared_ptr<int>myp)
-{
-	cout << "智能指针做函数参数，引用计数增加" << endl;
+void myfunction(shared_ptr<int> myp) {
+    cout << "智能指针做函数参数，引用计数增加" << endl;
 }
 
-shared_ptr<int> myfunction02(shared_ptr<int>&myp)
-{
-	cout << "智能指针做函数返回值，引用计数增加" << endl;
-	return  myp;
+shared_ptr<int> myfunction02(shared_ptr<int>& myp) {
+    cout << "智能指针做函数返回值，引用计数增加" << endl;
+    return myp;
 }
 
-
-void mydelete(int*p)//自己指定的删除器
+void mydelete(int* p)  //自己指定的删除器
 {
-	cout << "这是我们自己定义的删除器" << endl;
-	//......
-	delete p;
+    cout << "这是我们自己定义的删除器" << endl;
+    //......
+    delete p;
 }
 
 //3.函数模板封装
-template<typename T>
-shared_ptr<T>make_shared_array(size_t size)
-{
-	return shared_ptr<T>(new T[size], default_delete<T[]>());
+template <typename T>
+shared_ptr<T> make_shared_array(size_t size) {
+    return shared_ptr<T>(new T[size], default_delete<T[]>());
 }
 
+int main(void) {
+    //1引用用计数的增加
+    auto p1 = make_shared<int>(100);  //int =100对象只有一个引用者，p1
+    auto p2(p1);                      //两个引用者p1,p2		2 strong refs
+    myfunction(p2);                   //把智能指针当做函数实参传递给函数 --引用计数增加1
+    //作为函数实参传递，会增加引用
+    auto p3 = myfunction02(p2);
 
-int main(void)
-{
-	//1引用用计数的增加
-	auto p1 = make_shared<int>(100);//int =100对象只有一个引用者，p1
-	auto p2(p1);//两个引用者p1,p2		2 strong refs
-	myfunction(p2);//把智能指针当做函数实参传递给函数 --引用计数增加1
-	//作为函数实参传递，会增加引用
-	auto p3 = myfunction02(p2);
+    //2引用计数的减少
+    auto p4 = make_shared<int>(400);  //p4指向新对象，p4引用计数为1
+    p1 = make_shared<int>(500);       //p1引用计数减少为1
 
+    //3.当一个shared_ptr类型的指针从1变为0，他会自动释放自己所管理（指向）的对象
+    auto p5 = make_shared<int>(1000);
+    auto p6 = make_shared<int>(1000);
+    p6 = p5;  //这是是赋值，p6的引用计数变为2， p5引用计数变为2，
 
-	//2引用计数的减少
-	auto p4 = make_shared<int>(400);//p4指向新对象，p4引用计数为1
-	p1 = make_shared<int>(500);//p1引用计数减少为1
+    //shared_ptr返回有多少个智能指针指向某个对象
+    int myCount = p6.use_count();
+    cout << myCount << endl;  //2
+    int myCount02 = p5.use_count();
+    cout << myCount02 << endl;  //2
 
-		//3.当一个shared_ptr类型的指针从1变为0，他会自动释放自己所管理（指向）的对象
-	auto p5 = make_shared<int>(1000);
-	auto p6 = make_shared<int>(1000);
-	p6 = p5;//这是是赋值，p6的引用计数变为2， p5引用计数变为2，
+    //2.unique(*)是否该智能指针独占指向某个对象，返回true或者false
+    shared_ptr<int> p7(new int(7));
+    if (p7.unique()) {
+        cout << "unique成立，只有p7指向一块内存对象" << endl;
+    }
 
+    //reset不带参数，复位，置空
+    shared_ptr<int> p8(new int(8));
+    auto p9(p8);
+    p8.reset();
+    if (p8 == nullptr) {
+        cout << "p8指针为空" << endl;
+    }
+    //reset带参数new一个新对象
+    shared_ptr<int> p10(new int(10));
+    p10.reset(new int(11));  //释放原来内存，指向新的内存
 
-	//shared_ptr返回有多少个智能指针指向某个对象
-	int myCount = p6.use_count();
-	cout << myCount << endl;	//2
-	int myCount02 = p5.use_count();
-	cout << myCount02 << endl;	//2
+    //空指针也可以使用reset重新初始化
+    shared_ptr<int> p11;
+    p1.reset(new int(11));
 
-	//2.unique(*)是否该智能指针独占指向某个对象，返回true或者false
-	shared_ptr<int> p7(new int(7));
-	if (p7.unique())
-	{
-		cout << "unique成立，只有p7指向一块内存对象" << endl;
-	}
+    //4解引用
+    shared_ptr<int> p12(new int(12));
+    cout << *p12 << endl;
 
-	//reset不带参数，复位，置空
-	shared_ptr<int> p8(new int(8));
-	auto p9(p8);
-	p8.reset();
-	if (p8==nullptr)
-	{
-		cout << "p8指针为空" << endl;
-	}
-	//reset带参数new一个新对象
-	shared_ptr<int> p10(new int(10));
-	p10.reset(new int(11));//释放原来内存，指向新的内存
+    //get()返回指针
+    shared_ptr<int> p13(new int(13));
+    int* p14 = p13.get();
+    cout << *p14 << endl;
+    //这里不要手工释放p14，它指向的内存空间归智能指针p13管理
 
-	//空指针也可以使用reset重新初始化
-	shared_ptr<int>p11;
-	p1.reset(new int(11));
-	
-	//4解引用
-	shared_ptr<int>p12(new int(12));
-	cout << *p12 << endl;
-	
-	//get()返回指针
-	shared_ptr<int>p13(new int(13));
-	int*p14 = p13.get();
-	cout << *p14 << endl;
-	//这里不要手工释放p14，它指向的内存空间归智能指针p13管理
+    //swap()
+    shared_ptr<string> p15(new string("aaaa"));
+    shared_ptr<string> p16(new string("bbbb"));
+    swap(p15, p16);
+    cout << *p15 << endl;  //bbbb
+    cout << *p16 << endl;  //aaaa
 
-	//swap()
-	shared_ptr<string> p15(new string("aaaa"));
-	shared_ptr<string> p16(new string("bbbb"));
-	swap(p15, p16);
-	cout << *p15 << endl;//bbbb
-	cout << *p16 << endl;//aaaa
+    //=nullptr
+    p15 = nullptr;
 
-	//=nullptr
-	p15 = nullptr;
+    //智能指针名字作为判断条件
+    if (p16) {
+        cout << "p16指向一个对象" << endl;
+        p16 = nullptr;
+    }
 
-	//智能指针名字作为判断条件
-	if (p16)
-	{
-		cout << "p16指向一个对象" << endl;
-		p16 = nullptr;
-		
-	}
+    //指定自定定义的删除器
+    shared_ptr<int> p17(new int(17), mydelete);
+    p17 = nullptr;  //调用自己写的删除器,自己需要在函数里面进行内存的释放
+    //删除器可以是一个lambda表达式
+    shared_ptr<int> p18(new int(18), [](int* p) { delete p; });
 
-	//指定自定定义的删除器
-	shared_ptr<int>p17(new int(17), mydelete);
-	p17 = nullptr;//调用自己写的删除器,自己需要在函数里面进行内存的释放
-	//删除器可以是一个lambda表达式
-	shared_ptr<int>p18(new int(18), [](int*p) {delete p; });
+    //有些情况下，默认删除器处理不了---动态数组
+    shared_ptr<int> p19(new int[10], [](int* p) { delete[] p; });
 
+    //可以使用default_delete来做删除器，default_delete是标准库里面的模板类
+    shared_ptr<A> pA(new A[10], std::default_delete<A[]>());  //加上[]表示是删除的一个数组
 
-	//有些情况下，默认删除器处理不了---动态数组
-	shared_ptr<int>p19(new int[10], [](int*p) {delete[]p; });
+    //c++17  定义数组的时候在<>中添加[]
 
-	//可以使用default_delete来做删除器，default_delete是标准库里面的模板类
-	shared_ptr<A>pA(new A[10], std::default_delete<A[]>());//加上[]表示是删除的一个数组
+    //shared_ptr<A[]>pA2(new A[10]);//这样c++17可以正常处理数组的释放问题
 
-	//c++17  定义数组的时候在<>中添加[]
+    //shared_ptr模板封装
+    shared_ptr<int> p20 = make_shared_array<int>(5);
 
-	//shared_ptr<A[]>pA2(new A[10]);//这样c++17可以正常处理数组的释放问题
-
-
-	//shared_ptr模板封装
-	shared_ptr<int>p20 = make_shared_array<int>(5);
-	
-	system("pause");
-	return 0;
+    system("pause");
+    return 0;
 }
 
 /*

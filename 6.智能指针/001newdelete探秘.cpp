@@ -1,37 +1,30 @@
-#include<iostream>
-#include<cstdlib>
-#include<string>
-#include<vector>
+#include <cstdlib>
+#include <iostream>
+#include <string>
+#include <vector>
 
 using namespace std;
 
-class A
-{
-public:
-	
-	A()
-	{
-		cout << "构造函数被执行" << endl;
-	}
-	~A();
-	
+class A {
+  public:
+    A() {
+        cout << "构造函数被执行" << endl;
+    }
+    ~A();
 };
-A::~A()
-{
-	cout << "析构函数被执行" << endl;
+A::~A() {
+    cout << "析构函数被执行" << endl;
 }
 
+int main(void) {
+    //(1)
+    A *a1 = new A();  //调用类A的构造函数
+    delete a1;        //该类的析构函数被执行
 
-int main(void)
-{
-	//(1)
-	A*a1 = new A();//调用类A的构造函数
-	delete a1;//该类的析构函数被执行
-
-	int *p1 = new int(100);
-	delete p1;
-	//operator new()  和operator delete()是函数
-	/*
+    int *p1 = new int(100);
+    delete p1;
+    //operator new()  和operator delete()是函数
+    /*
 	 * new干了两个事情
 	 * （1）在堆上分配内存，就是通过operator new()来分配内存
 	 * （2）调用构造函数来初始化内存。
@@ -40,29 +33,28 @@ int main(void)
 	 *（2）释放内存 --调用operator delete()函数来释放内存
 	 */
 
-	//operator new()函数可以直接调用
-	void* myPoint = operator new (100);//直接分配100个字节
+    //operator new()函数可以直接调用
+    void *myPoint = operator new(100);  //直接分配100个字节
 
-
-	//(2)
-	int *p3 = new int(23);//分配4个字节
-	delete p3;//删除的时候，编译器是怎么知道要释放4个字节？？？
-	/*
+    //(2)
+    int *p3 = new int(23);  //分配4个字节
+    delete p3;              //删除的时候，编译器是怎么知道要释放4个字节？？？
+    /*
 	 * new出的内存空间中单独分配空间来记录分配的内存空间的大小，自己内部有记录机制。不需要深入了解。
 	 */
-	
-	//(3)申请和释放一个数组  这些可以在MFC框架下演示
-	int *p4 = new int[2];//int类型数组，有2个元素，占有8个字节 没有回收
 
-	A a2;
-	cout << sizeof(a2) << endl;//1  泄漏一个字节
-	cout << sizeof(A) << endl;//1
+    //(3)申请和释放一个数组  这些可以在MFC框架下演示
+    int *p4 = new int[2];  //int类型数组，有2个元素，占有8个字节 没有回收
 
-	A*p5 = new A();//泄漏1字节
+    A a2;
+    cout << sizeof(a2) << endl;  //1  泄漏一个字节
+    cout << sizeof(A) << endl;   //1
 
-	A*p6 = new A[2]();//泄漏6个字节，比我们想的多出来4个字节
-	
-	/*
+    A *p5 = new A();  //泄漏1字节
+
+    A *p6 = new A[2]();  //泄漏6个字节，比我们想的多出来4个字节
+
+    /*
 	 * 为什么空A对象a2占有1个字节？
 	 * 因为每个对象分配了内存空间，至少占有一个地址空间，至少占有1个字节的地址。
 	 *
@@ -71,19 +63,18 @@ int main(void)
 	 * 定义类对象数组，需要额外的4个字节来记录是多少个数组元素，以便后面调用多少次析构函数，
 	 */
 
-	int *p7 = new int[3];
-	delete p7;//没有使用[]，也可以释放，没有内存泄漏，但是建议使用delete []p7;
+    int *p7 = new int[3];
+    delete p7;  //没有使用[]，也可以释放，没有内存泄漏，但是建议使用delete []p7;
 
-	A*p8 = new A[2]();//泄漏6字节，其中2个字节是对象数组，另外4个。。。是一个整形，记录的是数组元素的个数，这里是数字2
-	delete[]p8;//类类型必须使用[]，不使用会报异常  ----调用2次析构函数
+    A *p8 = new A[2]();  //泄漏6字节，其中2个字节是对象数组，另外4个。。。是一个整形，记录的是数组元素的个数，这里是数字2
+    delete[] p8;         //类类型必须使用[]，不使用会报异常  ----调用2次析构函数
 
-
-	/*A*p9 = new A;
+    /*A*p9 = new A;
 	delete[]p9;*/
-	//系统一直调用析构函数，因为不知道数组元素的个数
-	
-	system("pause");
-	return 0;
+    //系统一直调用析构函数，因为不知道数组元素的个数
+
+    system("pause");
+    return 0;
 }
 
 /*

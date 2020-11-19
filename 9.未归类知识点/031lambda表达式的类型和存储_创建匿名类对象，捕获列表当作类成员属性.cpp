@@ -1,45 +1,39 @@
-#include<iostream>
-#include<cstdlib>
-#include<functional>
-
+#include <cstdlib>
+#include <functional>
+#include <iostream>
 
 using namespace std;
 
-int main(void)
-{
-	auto f1 = [] {};//f1就相当于一个未命名的类 类型对象
+int main(void) {
+    auto f1 = [] {};  //f1就相当于一个未命名的类 类型对象
 
-	int x = 5;
-	auto f2 = [=]()
-	{
-		return x;
-	};//f2要生成一个类类型变量，这些捕获的外部变量要在类内部作为成员变量存在。
+    int x = 5;
+    auto f2 = [=]() {
+        return x;
+    };  //f2要生成一个类类型变量，这些捕获的外部变量要在类内部作为成员变量存在。
 
-	//lambda和function结合使用例子
-	std::function<int(int)>f3 = [](int value)->int
-	{
-		value++;
-		return value;
-	};
-	cout << f3(15) << endl;//16
+    //lambda和function结合使用例子
+    std::function<int(int)> f3 = [](int value) -> int {
+        value++;
+        return value;
+    };
+    cout << f3(15) << endl;  //16
 
-	std::function<int(int)>f4 = std::bind(
-		[](int value)
-	{
-		return value + 1;
-		
-	},placeholders::_1
-	);
-	//bind第一个参数是可调用对象或者函数指针，第二个参数是函数参数
-	cout << f4(23) << endl;//24
+    std::function<int(int)> f4 = std::bind(
+        [](int value) {
+            return value + 1;
+        },
+        placeholders::_1);
+    //bind第一个参数是可调用对象或者函数指针，第二个参数是函数参数
+    cout << f4(23) << endl;  //24
 
-	//捕获列表为空的lambda表达式，可以转换成一个普通的函数指针。
-	using funcpType = int(*)(int);//定义一个函数指针类型
-	funcpType fp = [](int value) {return value + 1; };
-	cout << fp(123) << endl;//124
-	
-	system("pause");
-	return 0;
+    //捕获列表为空的lambda表达式，可以转换成一个普通的函数指针。
+    using funcpType = int (*)(int);  //定义一个函数指针类型
+    funcpType fp = [](int value) { return value + 1; };
+    cout << fp(123) << endl;  //124
+
+    system("pause");
+    return 0;
 }
 /*
 * (1)lambda表达式的类型和存储

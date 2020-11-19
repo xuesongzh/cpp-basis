@@ -1,49 +1,46 @@
-#include<iostream>
-#include<cstdlib>
-#include<string>
-#include<vector>
+#include <cstdlib>
+#include <iostream>
 #include <memory>
+#include <string>
+#include <vector>
 
 using namespace std;
 
+int main(void) {
+    //weak_ptr一般是使用shared_ptr来创建爱女
+    auto p1 = make_shared<int>(100);
+    weak_ptr<int> p2Weak(p1);  //p2Weak是弱引用，强引用计数不会改变，一个强引用，一个弱引用指向100
+    //只有强引用决定对象的生存期。若引用对对象生存期没有影响
+    weak_ptr<int> p3Weak = p2Weak;  //使用一个弱引用给另一个弱引用赋值。
 
-int main(void)
-{
-	//weak_ptr一般是使用shared_ptr来创建爱女
-	auto p1 = make_shared < int>(100);
-	weak_ptr<int>p2Weak(p1);//p2Weak是弱引用，强引用计数不会改变，一个强引用，一个弱引用指向100
-	//只有强引用决定对象的生存期。若引用对对象生存期没有影响
-	weak_ptr<int>p3Weak = p2Weak;//使用一个弱引用给另一个弱引用赋值。
+    //lock()的功能：检查weak_ptr所指向的对象是否存在，如果存在，就返回一个指向该对象的shared_ptr指针，
+    //如果不存在,返回的指针指向为空
+    //p1.reset();//释放该对象
+    auto p4shared_ptr = p2Weak.lock();  //p4shared_ptr是一个返回的shred_ptr,强引用计数+1
 
-	//lock()的功能：检查weak_ptr所指向的对象是否存在，如果存在，就返回一个指向该对象的shared_ptr指针，
-	//如果不存在,返回的指针指向为空
-	//p1.reset();//释放该对象
-	auto p4shared_ptr = p2Weak.lock();//p4shared_ptr是一个返回的shred_ptr,强引用计数+1
-	
+    //常见函数用法
+    int count = p2Weak.use_count();
+    cout << count << endl;  //2
 
-	//常见函数用法
-	int count = p2Weak.use_count();
-	cout << count << endl;	//2
+    //expired--过期判断
+    //指向100的两个强引用都设置为过期
+    p1.reset();
+    p4shared_ptr.reset();
+    if (p2Weak.expired())  //返回值为true
+    {
+        cout << "对象已经过期" << endl;
+    }
 
-	//expired--过期判断
-	//指向100的两个强引用都设置为过期
-	p1.reset();
-	p4shared_ptr.reset();
-	if (p2Weak.expired())//返回值为true
-	{
-		cout << "对象已经过期" << endl;
-	}
+    //(4)尺寸问题
+    weak_ptr<int> p5_weak;
+    int* p6 = nullptr;
+    int length1 = sizeof(p5_weak);  //8
+    int length2 = sizeof(p6);       //4
+    cout << "length1=" << length1 << endl;
+    cout << "length2=" << length2 << endl;
 
-	//(4)尺寸问题
-	weak_ptr<int>p5_weak;
-	int*p6 = nullptr;
-	int length1 = sizeof(p5_weak);	//8
-	int length2 = sizeof(p6);	//4
-	cout << "length1=" << length1 << endl;
-	cout << "length2=" << length2 << endl;
-
-	system("pause");
-	return 0;
+    system("pause");
+    return 0;
 }
 
 /*

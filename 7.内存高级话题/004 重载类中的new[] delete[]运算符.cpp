@@ -1,58 +1,48 @@
-#include<iostream>
-#include<cstdlib>
-#include<string>
-#include<vector>
+#include <array>
+#include <cstdlib>
+#include <iostream>
+#include <list>
+#include <map>
 #include <memory>
 #include <set>
-#include <map>
-#include <list>
-#include <array>
+#include <string>
+#include <vector>
 
 using namespace std;
-class A
-{
-public:
-	void myFunction()
-	{
-		A*a = new A();
-		delete a;
-	}
-	static void *operator new[](size_t size);
-	static void operator delete[](void*pHead);
+class A {
+  public:
+    void myFunction() {
+        A* a = new A();
+        delete a;
+    }
+    static void* operator new[](size_t size);
+    static void operator delete[](void* pHead);
 
-	A()
-	{
-		cout << "这是类A的构造函数" << endl;
-	}
-	~A()
-	{
-		cout << "这是类a的析构函数" << endl;
-	}
-public:
+    A() {
+        cout << "这是类A的构造函数" << endl;
+    }
+    ~A() {
+        cout << "这是类a的析构函数" << endl;
+    }
 
+  public:
 };
 
-void* A::operator new[](size_t size)
-{
-	A*p1 = (A*)malloc(size);
-	return p1;
+void* A::operator new[](size_t size) {
+    A* p1 = (A*)malloc(size);
+    return p1;
 }
 
-void A::operator delete[](void* pHead)
-{
-
-	free(pHead);
+void A::operator delete[](void* pHead) {
+    free(pHead);
 }
 
+int main(void) {
+    A* p1 = new A[3];
+    delete[] p1;
 
-
-int main(void)
-{
-	A*p1 = new A[3];
-	delete[]p1;
-
-	system("pause");
-	return 0;
+    system("pause");
+    return 0;
 }
 
 /*

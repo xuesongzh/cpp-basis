@@ -1,89 +1,79 @@
-#include<iostream>
-#include<cstdlib>
 #include <boost/type_index.hpp>
+#include <cstdlib>
+#include <iostream>
 
 using namespace std;
 
 //显示参数类型，这里不研究boost库
-template<typename T>
+template <typename T>
 //void myFunction01(T&tem)//T是类型模板参数，T是有类型的,tem是形参，tem也是有类型的
-void myFunction01(const T &tem)
-{
-	using boost::typeindex::type_id_with_cvr;
-	cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;//显示T类型
-	cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;//显示T类型
-
+void myFunction01(const T &tem) {
+    using boost::typeindex::type_id_with_cvr;
+    cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;                //显示T类型
+    cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;  //显示T类型
 }
 
 //2.1指针或者引用类型
-template<typename T>
-void myFunction02( T &tem)//tem是引用
+template <typename T>
+void myFunction02(T &tem)  //tem是引用
 {
-	using boost::typeindex::type_id_with_cvr;
-	cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;//显示T类型
-	cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;//显示T类型
-
+    using boost::typeindex::type_id_with_cvr;
+    cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;                //显示T类型
+    cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;  //显示T类型
 }
 
-template<typename T>
-void myFunction03( const T &tem)//形参是常量引用
+template <typename T>
+void myFunction03(const T &tem)  //形参是常量引用
 {
-	using boost::typeindex::type_id_with_cvr;
-	cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;//显示T类型
-	cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;//显示T类型
-
+    using boost::typeindex::type_id_with_cvr;
+    cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;                //显示T类型
+    cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;  //显示T类型
 }
 
-template<typename T>
-void myFunction04( T *tem)//形参是指针类型
+template <typename T>
+void myFunction04(T *tem)  //形参是指针类型
 {
-	using boost::typeindex::type_id_with_cvr;
-	cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;//显示T类型
-	cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;//显示T类型
-
+    using boost::typeindex::type_id_with_cvr;
+    cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;                //显示T类型
+    cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;  //显示T类型
 }
 
-template<typename T>
-void myFunction05(T &&tem)//形参是万能引用类型
+template <typename T>
+void myFunction05(T &&tem)  //形参是万能引用类型
 {
-	using boost::typeindex::type_id_with_cvr;
-	cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;//显示T类型
-	cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;//显示T类型
-
+    using boost::typeindex::type_id_with_cvr;
+    cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;                //显示T类型
+    cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;  //显示T类型
 }
 
-
-template<typename T>
-void myFunction06(T tem)//形参是值类型
+template <typename T>
+void myFunction06(T tem)  //形参是值类型
 {
-	using boost::typeindex::type_id_with_cvr;
-	cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;//显示T类型
-	cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;//显示T类型
-
+    using boost::typeindex::type_id_with_cvr;
+    cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;                //显示T类型
+    cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;  //显示T类型
 }
 
-void tesFunction()
-{
-	;
+void tesFunction() {
+    ;
 }
-int main(void)
-{
-	//(2)void myFunction01(const T&tem)
-	myFunction01(100);
-	/*
+int main(void) {
+    //(2)void myFunction01(const T&tem)
+    myFunction01(100);
+    /*
 	 * T type=int
 	 * tem type=int const &
 	 */
-	
-	//2.1
-	int i = 18;	//int
-	const int j = i;	//const int
-	const int&k = i;	//const int&类型
-	cout << "-----" << endl;
-	myFunction02(i);
-	myFunction02(j);
-	myFunction02(k);
-	/*
+
+    //2.1
+    int i = 18;        //int
+    const int j = i;   //const int
+    const int &k = i;  //const int&类型
+    cout << "-----" << endl;
+    myFunction02(i);
+    myFunction02(j);
+    myFunction02(k);
+    /*
 	 *	T type=int
 		tem type=int &
 		T type=int const
@@ -97,12 +87,12 @@ int main(void)
 	
 	 */
 
-	//形参是常量引用
-	cout << "*******" << endl;
-	myFunction03(i);
-	myFunction03(j);
-	myFunction03(k);
-	/*
+    //形参是常量引用
+    cout << "*******" << endl;
+    myFunction03(i);
+    myFunction03(j);
+    myFunction03(k);
+    /*
 	 *  T type=int
 		tem type=int const &
 		T type=int
@@ -115,12 +105,12 @@ int main(void)
 	
 	 */
 
-	//指针类型
-	const int*pi = &i;
-	cout << "&&&&&&&&&" << endl;
-	myFunction04(&i);
-	myFunction04(pi);
-	/*
+    //指针类型
+    const int *pi = &i;
+    cout << "&&&&&&&&&" << endl;
+    myFunction04(&i);
+    myFunction04(pi);
+    /*
 	 *  T type=int
 		tem type=int *
 		T type=int const
@@ -129,13 +119,13 @@ int main(void)
 	
 	 */
 
-	//*	2.2万能引用--形式参数tem是一个万能引用类型T&&
-	cout << "2.2------------------------" << endl;
-	myFunction05(i);//左值
-	myFunction05(j);//左值
-	myFunction05(k);
-	myFunction05(100);//传递过去右值
-	/*
+    //*	2.2万能引用--形式参数tem是一个万能引用类型T&&
+    cout << "2.2------------------------" << endl;
+    myFunction05(i);  //左值
+    myFunction05(j);  //左值
+    myFunction05(k);
+    myFunction05(100);  //传递过去右值
+    /*
 	T type=int &
 	tem type=int &	//这里有引用折叠
 	T type=int const &
@@ -146,13 +136,12 @@ int main(void)
 	tem type=int &&
 	 */
 
-
-	//2.3传值方式 如果形式参数tem是常规的传值方式传递
-	cout << "2.3------------------------" << endl;
-	myFunction06(i);
-	myFunction06(j);
-	myFunction06(k);
-	/*
+    //2.3传值方式 如果形式参数tem是常规的传值方式传递
+    cout << "2.3------------------------" << endl;
+    myFunction06(i);
+    myFunction06(j);
+    myFunction06(k);
+    /*
 	 *  T type=int
 		tem type=int
 		T type=int
@@ -161,45 +150,44 @@ int main(void)
 		tem type=int
 	const属性没有传递进去，因为形式参数是一个新副本。怎么传递进去const属性？？？-->传递指针进去
 	 */
-	char myStr[] = "jisuanjizuchengyhuanli";
-	const char*const point = myStr;//第一个const修饰内存空间，第二个表示指针的指向不能改变
-	cout << "jjjjjjjjjjjjjjjj" << endl;
-	myFunction06(point);
-	/*
+    char myStr[] = "jisuanjizuchengyhuanli";
+    const char *const point = myStr;  //第一个const修饰内存空间，第二个表示指针的指向不能改变
+    cout << "jjjjjjjjjjjjjjjj" << endl;
+    myFunction06(point);
+    /*
 	 T type=char const *
 	 tem type=char const *
 	传递const char*或者const char[]第一个const保留。
 	 */
 
-	//2.4数组做实参
-	const char mystr02[] = "jisuanjizuchegnaun";
-	cout << "22222222222222222222222" << endl;
+    //2.4数组做实参
+    const char mystr02[] = "jisuanjizuchegnaun";
+    cout << "22222222222222222222222" << endl;
 
-	myFunction06(mystr02);
-	myFunction02(mystr02);//调引用--推导成数组
-	/*
+    myFunction06(mystr02);
+    myFunction02(mystr02);  //调引用--推导成数组
+    /*
 	T type=char const *
 	tem type=char const *
 	T type=char const [19]
 	tem type=char const (&)[19]//代表数组的引用
 	*/
 
-	//	2.5函数名做实参，函数名相当于函数首地址，可以赋值给一个函数指针
-	cout << "6666666666666" << endl;
-	myFunction06(tesFunction);
+    //	2.5函数名做实参，函数名相当于函数首地址，可以赋值给一个函数指针
+    cout << "6666666666666" << endl;
+    myFunction06(tesFunction);
 
-	myFunction02(tesFunction);//引用
-	/*
+    myFunction02(tesFunction);  //引用
+    /*
 	T type=void (__cdecl*)(void)//函数指针类型
 	tem type=void (__cdecl*)(void)
 	T type=void __cdecl(void)//函数指针引用
 	tem type=void (__cdecl&)(void)
 	 */
 
-	
-	cout << "helloWorld" << endl;
-	system("pause");
-	return 0;
+    cout << "helloWorld" << endl;
+    system("pause");
+    return 0;
 }
 
 /*

@@ -1,40 +1,35 @@
-#include<iostream>
-#include<cstdlib>
 #include <boost/type_index.hpp>
+#include <cstdlib>
+#include <iostream>
 using namespace std;
 
-template<typename T>
-void myFunction01(T &&tem)//T是类型模板参数，T是有类型的,tem是形参，tem也是有类型的
+template <typename T>
+void myFunction01(T &&tem)  //T是类型模板参数，T是有类型的,tem是形参，tem也是有类型的
 {
-	using boost::typeindex::type_id_with_cvr;
-	cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;//显示T类型
-	cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;//显示tem类型
-
+    using boost::typeindex::type_id_with_cvr;
+    cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;                //显示T类型
+    cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;  //显示tem类型
 }
 
-int main(void)
-{
-	int i = 18;//i的类型是int类型，i是个左值。
-	myFunction01(i);//实例化后,我们认为编译器推断后的结构为void myFunction(int& &&tem){}
-	myFunction01(12);
-	/*
+int main(void) {
+    int i = 18;       //i的类型是int类型，i是个左值。
+    myFunction01(i);  //实例化后,我们认为编译器推断后的结构为void myFunction(int& &&tem){}
+    myFunction01(12);
+    /*
 	 *	T type=int &
 		tem type=int &
 		T type=int
 		tem type=int &&
 	 */
-	//编译器真正实例化出来的myFunction是什么类型 void myFunction(int&tem){}--引用折叠
+    //编译器真正实例化出来的myFunction是什么类型 void myFunction(int&tem){}--引用折叠
 
+    //1.1引用的引用
+    int number = 500;
+    int &number_reference = number;  //引用
+    //int & &rr = b;//链接在一起叫右值引用，分开交引用的引用，是非法的。但是编译器内部可以出现，它自己推导，使用引用折叠处理。
 
-	//1.1引用的引用
-	int number = 500;
-	int &number_reference = number;//引用
-	//int & &rr = b;//链接在一起叫右值引用，分开交引用的引用，是非法的。但是编译器内部可以出现，它自己推导，使用引用折叠处理。
-
-
-	
-	system("pause");
-	return 0;
+    system("pause");
+    return 0;
 }
 /*
  * (1)引用折叠规则
