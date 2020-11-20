@@ -27,7 +27,7 @@ void operator delete[](void *p) {
 }
 
 class A {
-  public:
+ public:
     A() {
         cout << "调用类A的构造函数" << endl;
     }
@@ -36,7 +36,7 @@ class A {
         cout << "调用类A的析构函数" << endl;
     }
 
-  public:
+ public:
 };
 
 int main(void) {
@@ -59,10 +59,7 @@ int main(void) {
 }
 
 /*
-*(1)重载全局operator new operator delete函数
-*如果类中重载了operator new delete运算符，会调用类内部的重载函数。
-*2019年11月29日21:08:25
-* Sunrise于东北电力大学第二教学楼1121实验室
-
-*
-*/
+ *(1)重载全局operator new operator delete函数
+ *如果类中重载了operator new delete运算符，会调用类内部的重载函数。
+ *
+ */

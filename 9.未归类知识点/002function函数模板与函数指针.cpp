@@ -9,13 +9,13 @@ typedef int (*myfunction)(int);  //¶¨ÒåÒ»¸öº¯ÊýÖ¸ÕëÀàÐÍ£¬ÕâÖÖÖ¸Õë¿ÉÒÔÖ¸Ïò·µ»ØÖµÊ
 
 //ÀàÊµÏÖµÄ¹¦ÄÜ£º·µ»ØÒ»¸ö´óÓÚµÈÓÚ0µÄÊý×Ö£¬Èç¹ûÐ¡ÓÚ0£¬·µ»Ø0
 class BiggerThanZero {
-  public:
+ public:
     //´øÒ»¸ö²ÎÊýµÄ¹¹Ôìº¯Êý
     BiggerThanZero(int a) : m_i(a) {
         m_i = a;
     }
 
-  public:
+ public:
     //ÖØÔØ()º¯Êýµ÷ÓÃÔËËã·û
     int operator()(int value) const {
         if (value <= 0) {
@@ -25,7 +25,7 @@ class BiggerThanZero {
         }
     }
 
-  private:
+ private:
     int m_i;
 };
 
@@ -46,11 +46,11 @@ int main(void) {
     myMap.insert({"aa", echoValue});  //²åÈëÒ»¸öº¯ÊýÖ¸Õë
 
     BiggerThanZero b1(123);  //º¬ÓÐº¯Êýµ÷ÓÃÔËËã·ûµÄ¶ÔÏó
-    //myMap.insert({ "bb",b1.operator() });//error,Óï·¨´íÎó
+    // myMap.insert({ "bb",b1.operator() });//error,Óï·¨´íÎó
     //Í¨¹ýfunctionÀ´ÉùÃ÷Ò»¸ö¿Éµ÷ÓÃ¶ÔÏó
-    //function<int(int)>//ÉùÃ÷ÁËÒ»¸öfunction()ÀàÐÍ£¬ÓÃÀ´´ú±íÒ»¸ö¿Éµ÷ÓÃ¶ÔÏó£¬´ú±íµÄÊÇ·µ»ØÖµÊÇintÀàÐÍ£¬½ÓÊÜÒ»¸öintÀàÐÍ²ÎÊý
-    function<int(int)> f1 = echoValue;           //º¯ÊýÖ¸Õë£¬ÕâÀïechoValueÓÐº¯ÊýÖØÔØ£¬¾Í»áÕÒ²»µ½µØÖ·£¬±¨´í
-    function<int(int)> f2 = b1;                  //·ÅÀà¶ÔÏóÒ²ok£¬ÀàÖÐÓÐÔËËã·ûÖØÔØ
+    // function<int(int)>//ÉùÃ÷ÁËÒ»¸öfunction()ÀàÐÍ£¬ÓÃÀ´´ú±íÒ»¸ö¿Éµ÷ÓÃ¶ÔÏó£¬´ú±íµÄÊÇ·µ»ØÖµÊÇintÀàÐÍ£¬½ÓÊÜÒ»¸öintÀàÐÍ²ÎÊý
+    function<int(int)> f1 = echoValue;  //º¯ÊýÖ¸Õë£¬ÕâÀïechoValueÓÐº¯ÊýÖØÔØ£¬¾Í»áÕÒ²»µ½µØÖ·£¬±¨´í
+    function<int(int)> f2 = b1;         //·ÅÀà¶ÔÏóÒ²ok£¬ÀàÖÐÓÐÔËËã·ûÖØÔØ
     function<int(int)> f3 = BiggerThanZero(12);  //´´½¨Ò»¸öÄäÃû¶ÔÏóÀ´³õÊ¼»¯Ò»¸öº¯ÊýÄ£°å¶ÔÏó
     f1(43);
     f2(-23);
@@ -65,22 +65,22 @@ int main(void) {
     return 0;
 }
 /*
-*(1)²»Í¬µ÷ÓÃ¶ÔÏóµÄÏàÍ¬µ÷ÓÃÐÎÊ½--functionÄ£°å
-*int echoValue(int value)ºÍÀàÖÐµÄint operator()(int value)const£¬²ÎÊýºÍ·µ»ØÖµÏàÍ¬£¬¾Í½Ð×ö¡°µ÷ÓÃÐÎÊ½ÏàÍ¬¡±
-*Ò»ÖÖµ÷ÓÃÐÎÊ½¶ÔÓ¦Ò»¸öº¯ÊýÀàÐÍ£¨º¯ÊýÀàÐÍ--·µ»ØÖµºÍ²ÎÊý£©
-*
-*(2)¿Éµ÷ÓÃ¶ÔÏó
-*	eachValue()º¯Êý½Ð¿Éµ÷ÓÃ¶ÔÏó
-*	ÖØÔØÁËº¯Êýµ÷ÓÃÔËËã·ûÀà¶ÔÏó
-*	ÎÒÃÇ¿ÉÒÔ°ÑÕâÐ©¿Éµ÷ÓÃ¶ÔÏóµÄÖ¸Õë±£´æÆðÀ´£¬Ä¿µÄÊÇ·½±ãÎÒÃÇËæÊ±µ÷ÓÃÕâÐ©¿Éµ÷ÓÃ¶ÔÏó£¬ÀàËÆÓÚÎÒÃÇcÓïÑÔÖÐµÄº¯ÊýÖ¸Õë
-*	Í¨¹ýmap¼üÖµ¶ÔÀ´±£´æ£¬ÓÃ×Ö·û´®×ö¼ü£¬ÓÃº¯ÊýÖ¸Õë×öÖµ¡£
-*
-*(3)±ê×¼¿âfunctionalÀàÐÍ½éÉÜ
-*	function ÀàÄ£°å£¬ÒªÌá¹©Ä£°å²ÎÊýÀ´±íÊ¾¸ÃfunctionÀàÐÍÄÜ±íÊ¾µÄµ÷ÓÃÐÎÊ½
-*
-*×¢Òâ£º
-*	Èç¹ûº¯ÊýÓÐÖØÔØ£¬¾ÍÎÞ·¨Í¨¹ýfunctionÀ´µ÷ÓÃ£¬½â¾ö°ì·¨ÊÇÊ¹ÓÃº¯ÊýÖ¸ÕëÀ´½â¾ö¡£
-*	2019Äê12ÔÂ8ÈÕ22µã03·Ö
-*
-*
-*/
+ *(1)²»Í¬µ÷ÓÃ¶ÔÏóµÄÏàÍ¬µ÷ÓÃÐÎÊ½--functionÄ£°å
+ *int echoValue(int value)ºÍÀàÖÐµÄint operator()(int value)const£¬²ÎÊýºÍ·µ»ØÖµÏàÍ¬£¬¾Í½Ð×ö¡°µ÷ÓÃÐÎÊ½ÏàÍ¬¡±
+ *Ò»ÖÖµ÷ÓÃÐÎÊ½¶ÔÓ¦Ò»¸öº¯ÊýÀàÐÍ£¨º¯ÊýÀàÐÍ--·µ»ØÖµºÍ²ÎÊý£©
+ *
+ *(2)¿Éµ÷ÓÃ¶ÔÏó
+ *	eachValue()º¯Êý½Ð¿Éµ÷ÓÃ¶ÔÏó
+ *	ÖØÔØÁËº¯Êýµ÷ÓÃÔËËã·ûÀà¶ÔÏó
+ *	ÎÒÃÇ¿ÉÒÔ°ÑÕâÐ©¿Éµ÷ÓÃ¶ÔÏóµÄÖ¸Õë±£´æÆðÀ´£¬Ä¿µÄÊÇ·½±ãÎÒÃÇËæÊ±µ÷ÓÃÕâÐ©¿Éµ÷ÓÃ¶ÔÏó£¬ÀàËÆÓÚÎÒÃÇcÓïÑÔÖÐµÄº¯ÊýÖ¸Õë
+ *	Í¨¹ýmap¼üÖµ¶ÔÀ´±£´æ£¬ÓÃ×Ö·û´®×ö¼ü£¬ÓÃº¯ÊýÖ¸Õë×öÖµ¡£
+ *
+ *(3)±ê×¼¿âfunctionalÀàÐÍ½éÉÜ
+ *	function ÀàÄ£°å£¬ÒªÌá¹©Ä£°å²ÎÊýÀ´±íÊ¾¸ÃfunctionÀàÐÍÄÜ±íÊ¾µÄµ÷ÓÃÐÎÊ½
+ *
+ *×¢Òâ£º
+ *	Èç¹ûº¯ÊýÓÐÖØÔØ£¬¾ÍÎÞ·¨Í¨¹ýfunctionÀ´µ÷ÓÃ£¬½â¾ö°ì·¨ÊÇÊ¹ÓÃº¯ÊýÖ¸ÕëÀ´½â¾ö¡£
+ *	2019Äê12ÔÂ8ÈÕ22µã03·Ö
+ *
+ *
+ */

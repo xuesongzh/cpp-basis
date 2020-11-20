@@ -1,30 +1,27 @@
-#include<iostream>
-#include<cstdlib>
-#include<string>
-#include<vector>
+#include <cstdlib>
+#include <iostream>
 #include <map>
+#include <string>
+#include <vector>
 
 using namespace std;
 //定义函数模板
-template<typename T1,typename T2,typename T3>
-T1 Sum(T1 i,T3 j)
-{
-	T1 result = i + j;
-	return result;
+template <typename T1, typename T2, typename T3>
+T1 Sum(T1 i, T3 j) {
+    T1 result = i + j;
+    return result;
 }
 
-int main(void)
-{
-	//(1)
-	auto result = Sum<int, int, int>(2000000000, 2000000000);
-	auto restult02 = Sum<double, int, int>(2000000000, 2000000000);
+int main(void) {
+    //(1)
+    auto result = Sum<int, int, int>(2000000000, 2000000000);
+    auto restult02 = Sum<double, int, int>(2000000000, 2000000000);
 
-	cout << result << endl;//-294967296
-	cout << restult02 << endl; //4e+09
+    cout << result << endl;     //-294967296
+    cout << restult02 << endl;  // 4e+09
 
-
-	system("pause");
-	return 0;
+    system("pause");
+    return 0;
 }
 
 /*

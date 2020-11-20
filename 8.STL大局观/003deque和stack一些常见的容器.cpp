@@ -1,99 +1,84 @@
-#include<iostream>
-#include<cstdlib>
-#include<string>
-#include<vector>
+#include <cstdlib>
+#include <iostream>
+#include <map>
 #include <memory>
-#include<queue>
-#include<map>
+#include <queue>
 #include <set>
+#include <string>
 #include <unordered_set>
+#include <vector>
 using namespace std;
 
-class A
-{
-public:
-	A(int a) :m_i(a)
-	{
-		cout << "构造函数执行" << endl;
-	}
-	A(const A&a) :m_i(a.m_i)
-	{
-		cout << "A的拷贝构造函数执行" << endl;
-	}
+class A {
+ public:
+    A(int a) : m_i(a) {
+        cout << "构造函数执行" << endl;
+    }
+    A(const A& a) : m_i(a.m_i) {
+        cout << "A的拷贝构造函数执行" << endl;
+    }
 
-	~A()
-	{
-		cout << "A的析构函数执行" << endl;
-	}
-public:
-	int m_i;
+    ~A() {
+        cout << "A的析构函数执行" << endl;
+    }
+
+ public:
+    int m_i;
 };
 
+int main(void) {
+    deque<A> myDeque;
+    for (int i = 0; i < 5; i++) {
+        cout << "----------begin------------" << endl;
+        myDeque.push_front(A(i));
+        cout << "----------end------------" << endl;
+    }
+    for (int i = 0; i < 5; i++) {
+        cout << "----------begin2------------" << endl;
+        myDeque.push_back(A(i));
+        cout << "----------end2------------" << endl;
+    }
 
-int main(void)
-{
-	deque<A>myDeque;
-	for (int i=0;i<5;i++)
-	{
-		cout << "----------begin------------" << endl;
-		myDeque.push_front(A(i));
-		cout << "----------end------------" << endl;
+    for (int i = 0; i < myDeque.size(); i++) {
+        cout << "下标为i=" << i << "的值为" << myDeque[i].m_i << endl;
+        //输出地址
+        printf("每个元素的地址为:%p\n", &myDeque[i]);
+    }
 
-	}
-	for (int i = 0; i<5; i++)
-	{
-		cout << "----------begin2------------" << endl;
-		myDeque.push_back(A(i));
-		cout << "----------end2------------" << endl;
+    // 6
+    map<int, string> myMap;
+    myMap.insert(make_pair(1, "老罗"));
+    //方法2
+    myMap.insert(pair<int, string>(2, "老白"));
+    //查找
+    auto iter02 = myMap.find(1);
+    if (iter02 != myMap.end())  //输出使用first second
+    {
+        cout << "找到了" << endl;
+        cout << iter02->first << iter02->second << endl;
+    }
 
-	}
-	
-	for (int i=0;i<myDeque.size();i++)
-	{
-		cout << "下标为i="<<i<<"的值为"<< myDeque[i].m_i << endl;
-		//输出地址
-		printf("每个元素的地址为:%p\n", &myDeque[i]);
-	}
-	
+    // 7
+    set<int> myset;
+    myset.insert(1);
+    myset.insert(2);
+    for (auto iter03 = myset.begin(); iter03 != myset.end(); ++iter03) {
+        cout << *iter03 << endl;
+    }
 
-	//6
-	map<int, string> myMap;
-	myMap.insert(make_pair(1, "老罗"));
-	//方法2
-	myMap.insert(pair<int, string>(2, "老白"));
-	//查找
-	auto iter02 = myMap.find(1);
-	if (iter02!=myMap.end())//输出使用first second
-	{
-		cout << "找到了" << endl;
-		cout << iter02->first << iter02->second << endl;
-	}
+    // 8
+    cout << "888888888888888888888" << endl;
+    unordered_set<int> myUnset;
+    cout << "bunket_count=" << myUnset.bucket_count() << endl;  // 8
+    for (int i = 0; i < 10; i++) {
+        myUnset.insert(i);
+    }
+    cout << "bunket_count=" << myUnset.bucket_count() << endl;  // 64
+    //篮子数量不少于元素数量，查看最多篮子数量
+    cout << "max_bucket_count=" << myUnset.max_bucket_count() << endl;  // 536870911
 
-
-	//7
-	set<int>myset;
-	myset.insert(1);
-	myset.insert(2);
-	for (auto iter03=myset.begin();iter03!=myset.end();++iter03)
-	{
-		cout << *iter03 << endl;
-	}
-
-	//8
-	cout << "888888888888888888888" << endl;
-	unordered_set<int>myUnset;
-	cout << "bunket_count=" << myUnset.bucket_count() << endl;//8
-	for (int i=0;i<10;i++)
-	{
-		myUnset.insert(i);
-	}
-	cout << "bunket_count=" << myUnset.bucket_count() << endl;//64
-	//篮子数量不少于元素数量，查看最多篮子数量
-	cout << "max_bucket_count=" << myUnset.max_bucket_count() << endl;//536870911
-	
-	
-	system("pause");
-	return 0;
+    system("pause");
+    return 0;
 }
 
 /*
@@ -120,7 +105,7 @@ int main(void)
 *(7)set集合不存在键值对的说法，会自动排序，是一个集合，元素值不能重复，如果想重复，就使用multiset
 *	1.插入时，因为要排序，所以插入速度可能慢，但是查找速度快。
 *	一般使用树实现
-*	
+*
 *(8)unordered_set unordered_multiset unordered_map  unordered_mulmap
 *以往的hash_map hash_multimap  hash_set hash_multiset等都不推荐使用
 *无序容器内部一般使用哈希表实现

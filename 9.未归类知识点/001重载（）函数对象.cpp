@@ -10,13 +10,13 @@ void myFunction(int a_i) {
 
 //类实现的功能：返回一个大于等于0的数字，如果小于0，返回0
 class BiggerThanZero {
-  public:
+ public:
     //带一个参数的构造函数
     BiggerThanZero(int a) : m_i(a) {
         m_i = a;
     }
 
-  public:
+ public:
     //重载()函数调用运算符
     int operator()(int value) const {
         if (value <= 0) {
@@ -30,7 +30,7 @@ class BiggerThanZero {
         return 1;
     }
 
-  private:
+ private:
     int m_i;
 };
 
@@ -54,7 +54,7 @@ int main(void) {
  *	1.对语言本身的学习--学习语法，不可或缺的阶段
  *	2.大量的练习--有条件尽量去实践
  *	3.开始阅读优秀的人写的优秀代码--每个人写的代码有不同的习惯,每个人都有自己的习惯和擅长。
- *		
+ *
  *(2)圆括号()就是函数调用的明显标记,()有一个称呼叫“函数调用运算符”;
  *	如果我们在类中重载了函数调用运算符()，那么我们就可以像使用函数一样使用该类的对象了。对象(实参)
  *	如何定义一个函数调用运算符？？
@@ -68,4 +68,4 @@ int main(void) {
  *
  *
  *
-*/
+ */

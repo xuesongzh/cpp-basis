@@ -5,7 +5,7 @@
 using namespace std;
 
 class CT {
-  public:
+ public:
     void myFunction(int x, int y)  //普通成员函数
     {
         cout << "x=" << x << endl;
@@ -16,7 +16,7 @@ class CT {
         cout << "operator()函数被调用" << endl;
     }
 
-  public:
+ public:
     int m_a = 0;
 };
 
@@ -41,9 +41,9 @@ int main(void) {
 
     auto rt = std::bind(CT());  //执行构造函数，拷贝构造，两次析构
     /*
-	 * CT()构造临时对象，调用拷贝构造函数生成一个临时对象作为std::bind()的返回对象，
-	 * bind返回仿函数类型对象，就是调用拷贝构造函数构造出来的对象
-	 */
+     * CT()构造临时对象，调用拷贝构造函数生成一个临时对象作为std::bind()的返回对象，
+     * bind返回仿函数类型对象，就是调用拷贝构造函数构造出来的对象
+     */
 
     auto bf4 = std::bind(runFunc, std::placeholders::_1);  //调用时候指定第一个参数
 
@@ -55,14 +55,14 @@ int main(void) {
     return 0;
 }
 /*
-* (1)std::bind绑定器和function配合使用
-* (2)把成员变量地址当函数一样绑定，绑定结果放在std::function<int&(void)>保存，说白了就是用一个可调用对象类型保存。
-* (3)总结：
-*		bind思想，所谓的延迟调用，将可调用对象格式统一，保存起来，需要的时候在调用。
-*		我们用std::function绑定一个可调用对象，类型成员不能绑定，std::bind更加强大，成员函数，成员变量都可以绑定
-*	2019年12月11日12点22分
-* 
-* (4)
-* (5)
-* (6)(7)
-*/
+ * (1)std::bind绑定器和function配合使用
+ * (2)把成员变量地址当函数一样绑定，绑定结果放在std::function<int&(void)>保存，说白了就是用一个可调用对象类型保存。
+ * (3)总结：
+ *		bind思想，所谓的延迟调用，将可调用对象格式统一，保存起来，需要的时候在调用。
+ *		我们用std::function绑定一个可调用对象，类型成员不能绑定，std::bind更加强大，成员函数，成员变量都可以绑定
+ *	2019年12月11日12点22分
+ *
+ * (4)
+ * (5)
+ * (6)(7)
+ */

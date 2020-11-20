@@ -16,15 +16,15 @@ int main(void) {
         cout << "value=" << value << endl;
         iSum += value;
     });
-    cout << "iSum=" << iSum << endl;  //100
+    cout << "iSum=" << iSum << endl;  // 100
     system("pause");
     return 0;
 }
 /*
-* for_each()使用lambda表达式
-* (2)
-* (3)
-* (4)
-* (5)
-* (6)(7)
-*/
+ * for_each()使用lambda表达式
+ * (2)
+ * (3)
+ * (4)
+ * (5)
+ * (6)(7)
+ */

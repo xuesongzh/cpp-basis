@@ -11,7 +11,7 @@
 using namespace std;
 
 class A {
-  public:
+ public:
     void myFunction() {
         A* a = new A();
         delete a;
@@ -26,7 +26,7 @@ class A {
         cout << "这是类a的析构函数" << endl;
     }
 
-  public:
+ public:
 };
 
 void* A::operator new(size_t size) {
@@ -47,18 +47,12 @@ int main(void) {
 }
 
 /*
-*(1)重载类中的new delete运算符
-*调用顺序：1. 调用operator new函数分配内存空间
-*		 2。调用构造函数构建对象
-*		 .......做一系列操作
-*		 3.调用析构函数做对象释放前的准备工作
-*		 4.调用operator delete释放内存空间
-*
-*(2)
-*
-*(3)
-*2019年11月29日18:26:40
-* Sunrise于东北电力大学第二教学楼1121实验室
-
-*
-*/
+ *(1)重载类中的new delete运算符
+ *调用顺序：1. 调用operator new函数分配内存空间
+ *		 2。调用构造函数构建对象
+ *		 .......做一系列操作
+ *		 3.调用析构函数做对象释放前的准备工作
+ *		 4.调用operator delete释放内存空间
+ *
+ *
+ */

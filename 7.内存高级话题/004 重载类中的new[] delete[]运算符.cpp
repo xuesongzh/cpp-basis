@@ -10,7 +10,7 @@
 
 using namespace std;
 class A {
-  public:
+ public:
     void myFunction() {
         A* a = new A();
         delete a;
@@ -25,7 +25,7 @@ class A {
         cout << "这是类a的析构函数" << endl;
     }
 
-  public:
+ public:
 };
 
 void* A::operator new[](size_t size) {
@@ -46,7 +46,7 @@ int main(void) {
 }
 
 /*
-	重载类中的new[] delete[]运算符--释放数组的内存空间
+        重载类中的new[] delete[]运算符--释放数组的内存空间
 *(1)
 *operator new 和operator delete被调用1次，但是构造函数和析构函数被调用3次
 *
@@ -55,10 +55,7 @@ int main(void) {
 *
 p1 = 0x0057d3a0		operator new()分配的地址，这是是分配的向后的7个字节
 p1 = 0x0057d3a4		返回的地址
-0x0057D3A0  03 00 00 00 cd cd cd fd fd fd fd dd 
-0x0057D3AC  dd dd dd dd 10 a8 ac 25 dd dd 00 80  
-
-*2019年11月29日18:47:29
-* Sunrise于东北电力大学第二教学楼1121实验室
+0x0057D3A0  03 00 00 00 cd cd cd fd fd fd fd dd
+0x0057D3AC  dd dd dd dd 10 a8 ac 25 dd dd 00 80
 
 */

@@ -11,7 +11,7 @@
 using namespace std;
 
 class A {
-  public:
+ public:
     /*A()
   {
           ;
@@ -19,7 +19,7 @@ class A {
 
     virtual void myFunction() {}
 
-  public:
+ public:
     int m_i;
 };
 

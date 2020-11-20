@@ -7,7 +7,7 @@
 using namespace std;
 
 class A {
-  public:
+ public:
     A() {}
     ~A() {
         ;
@@ -24,31 +24,31 @@ int main(void) {
     if (p1 == nullptr) {
         cout << "p1是空指针" << endl;
     }
-    unique_ptr<int> p2(new int(34354));  //p2指向一个值为34354的int对象
-    //make_unique c++14中引入，不需要指定删除器的时候选择这个
+    unique_ptr<int> p2(new int(34354));  // p2指向一个值为34354的int对象
+    // make_unique c++14中引入，不需要指定删除器的时候选择这个
     unique_ptr<int> p3 = make_unique<int>(234);
-    auto p4 = make_unique<int>(200);  //p4是一个智能指针
+    auto p4 = make_unique<int>(200);  // p4是一个智能指针
 
-    //2.1
+    // 2.1
     unique_ptr<string> p5(new string("jisuanjizuchengyaunli"));
     //智能指针不支持拷贝动作,也不支持赋值操作
-    //unique_ptr<string> p6(p5);//error
-    //unique_ptr<string>p7 = p5;//error
+    // unique_ptr<string> p6(p5);//error
+    // unique_ptr<string>p7 = p5;//error
 
-    //2.2移动语义
-    unique_ptr<string> p8 = std::move(p5);  //p5为空，p8指向原来的内存空间
+    // 2.2移动语义
+    unique_ptr<string> p8 = std::move(p5);  // p5为空，p8指向原来的内存空间
 
-    //2.3 release()释放
+    // 2.3 release()释放
     unique_ptr<string> p9(p5.release());  //使用p5的裸指针来初始化p9
     string *p10 = p9.release();
     delete p10;  //一旦release()就需要手工释放
 
-    //2.4
+    // 2.4
     unique_ptr<string> p11(new string("dsfsdf"));
-    //p11.reset();//释放内存空间，
-    p11.reset(p5.release());  //release释放p5指向的内存空间的联系，同时p11指向这个空间
+    // p11.reset();//释放内存空间，
+    p11.reset(p5.release());  // release释放p5指向的内存空间的联系，同时p11指向这个空间
 
-    //2.5nullptr
+    // 2.5nullptr
     unique_ptr<int> p12(new int(234));
     p12 = nullptr;
 
@@ -59,10 +59,10 @@ int main(void) {
 
     unique_ptr<A[]> pAA(new A[10]);  //当有自己的析构函数<>里面必须加上[]，否则会报异常
 
-    //2.7get() 返回智能指针中返回的裸指针
+    // 2.7get() 返回智能指针中返回的裸指针
     //注意得到裸指针不要释放内存空间，让智能指针自己释放更好，否则会释放2次出错
 
-    //2.11 转换成shared_ptr类型，转换后赋值
+    // 2.11 转换成shared_ptr类型，转换后赋值
     shared_ptr<string> p13 = myFunction();
 
     system("pause");
@@ -86,8 +86,8 @@ int main(void) {
 *	2.5 =nullptr释放智能指针所指向的内存空间，并将智能指针置空
 *
 *	2.6指向一个数组
-	2.7get() 返回智能指针中返回的裸指针
-	
+        2.7get() 返回智能指针中返回的裸指针
+
 *	2.8解引用 *获取智能指针的对象，直接进行操作
 *	2.9swap()交换两个智能指针所指向的对象
 *	2.10智能指针名字作为if判断条件

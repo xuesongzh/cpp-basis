@@ -10,9 +10,9 @@ unique_ptr<string> myFunction() {
     unique_ptr<string> pr(new string("dsfsdf"));
     return pr;
     /*
-	 * 从函数返回一个局部对象，系统给我们生成一个临时unique_ptr对象，调用unique_ptr的移动构造函数
-	 * 
-	 */
+     * 从函数返回一个局部对象，系统给我们生成一个临时unique_ptr对象，调用unique_ptr的移动构造函数
+     *
+     */
 }
 
 void myDelete(string *pdel) {
@@ -21,9 +21,9 @@ void myDelete(string *pdel) {
 }
 typedef void (*myf)(string *);
 //定义函数指针类型 using myf=void(*)(string*)
-//typedef decltype(myDelete)*myf;
+// typedef decltype(myDelete)*myf;
 
-//lambda表达式
+// lambda表达式
 auto mydel = [](string *del) {
     delete del;
     del = nullptr;
@@ -41,11 +41,11 @@ int main(void) {
     //用lambda表达式来写，可以理解成带有operator()类型的类对象
     unique_ptr<string, decltype(mydel)> p4(new string("sdfdsf"), mydel);
 
-    //unque_ptr和裸指针相同
+    // unque_ptr和裸指针相同
     string *p = nullptr;
-    cout << sizeof(p) << endl;  //4
+    cout << sizeof(p) << endl;  // 4
     unique_ptr<string> p5(new string("sdf"));
-    cout << sizeof(p5) << endl;  //4
+    cout << sizeof(p5) << endl;  // 4
 
     system("pause");
     return 0;
@@ -61,7 +61,7 @@ int main(void) {
 *	删除器本质上是一个可调用对象。
 *	shared_ptr删除器直接在参数里面加上函数名字即可。但是unique_ptr的删除器相对负载一点。
 *	需要向类模板中传递具体类型和删除函数类型。
-	unique_ptr<string, myf> p2(new string("jisuanj"), myDelete);
+        unique_ptr<string, myf> p2(new string("jisuanj"), myDelete);
 *
 *	2.指定删除器额外说明
 *		shared_ptr指定的删除器不同，但是指向的对象类型相同，两个shared_ptr就是同一种类型。
@@ -82,13 +82,13 @@ int main(void) {
 *		且不能在容器中保存，并不能从函数中返回。
 *		虽然unique_ptr和auto_ptr都是独占式的，但是auto_ptr进行赋值操作=会默认转移所有权。
 *	建议：使用unique_ptr取代auto_ptr
-*	
+*
 *	4.3智能指针的选择
 *		shared_ptr
 *		unique_ptr
 *		如果程序有多个指针指向同一个对象，使用shared_ptr
 *		如果不需要多个指针指向同一个指针，使用unique_ptr指针
-*	
+*
 *
 *
 */

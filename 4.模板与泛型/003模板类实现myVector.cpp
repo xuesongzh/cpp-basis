@@ -1,25 +1,24 @@
-#include<iostream>
-#include<cstdlib>
-#include<string>
-#include<vector>
-#include"myVector.h"
+#include <cstdlib>
+#include <iostream>
+#include <string>
+#include <vector>
+
+#include "myVector.h"
 using namespace std;
 
-int main(void)
-{
+int main(void) {
+    myVector<int> temVec;  //生成一个具体的类 T---->int
+    myVector<double> temVec02;
+    myVector<string> temVec03;
+    /*
+     *注意：myVector是类模板名字，他不是一个类名，类模板是用来实例化类用的
+     *所以myVector<string>、myVector<int>才是一类型名---实例化的类型
+     *一个实例化的类型，总会使用<>包含模板参数
+     */
+    temVec.myTestFunctin();
 
-	myVector<int> temVec;//生成一个具体的类 T---->int
-	myVector<double>temVec02;
-	myVector<string>temVec03;
-	/*
-	 *注意：myVector是类模板名字，他不是一个类名，类模板是用来实例化类用的
-	 *所以myVector<string>、myVector<int>才是一类型名---实例化的类型
-	 *一个实例化的类型，总会使用<>包含模板参数
-	 */
-	temVec.myTestFunctin();
-	
-	system("pause");
-	return 0;
+    system("pause");
+    return 0;
 }
 
 /*
@@ -49,7 +48,7 @@ int main(void)
 *template <typename T>
  typename myVector<T>::myIterator myVector<T>::myend()
  {
-	//typename 模板参数名::函数返回值 类名（实例化后）::函数名字
+        //typename 模板参数名::函数返回值 类名（实例化后）::函数名字
  }
 
 一个实例化的类的成员函数只有在被调用的时候，才会被实例化

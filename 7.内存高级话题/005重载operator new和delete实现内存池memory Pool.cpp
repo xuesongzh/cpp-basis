@@ -11,13 +11,13 @@
 
 using namespace std;
 class A {
-  public:
+ public:
     static void* operator new(size_t size);
     static void operator delete(void* pHead);
     //分配内存次数的统计,new的次数
     static int m_iCount;
-    static int m_mallocCount;  //malloc的次数
-  private:
+    static int m_mallocCount;  // malloc的次数
+ private:
     A* next;
     static A* m_FreePosi;      //总是指向一块可以分配出去的内存首地址
     static int m_sTrunkCount;  //一次分配多少倍的该类的内存

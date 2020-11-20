@@ -1,30 +1,25 @@
-#include<iostream>
-#include<cstdlib>
-#include<string>
-#include<vector>
+#include <cstdlib>
+#include <iostream>
+#include <string>
+#include <vector>
 
 using namespace std;
 
 //求字符串的长度
-template<typename T>
-typename T::size_type GetLength(const T&c)
-{
-	if (c.empty())
-	{
-		return 0;
-	}
-	return c.size();
+template <typename T>
+typename T::size_type GetLength(const T& c) {
+    if (c.empty()) {
+        return 0;
+    }
+    return c.size();
 }
 
+int main(void) {
+    string mytest = "jisuanjizuchegnyuanli";
+    string::size_type size = GetLength(mytest);  //等价于无符号整形
 
-int main(void)
-{
-	string mytest = "jisuanjizuchegnyuanli";
-	string::size_type size = GetLength(mytest);//等价于无符号整形
-
-	
-	system("pause");
-	return 0;
+    system("pause");
+    return 0;
 }
 
 /*
@@ -39,8 +34,8 @@ int main(void)
 *		typename myVector<T>::myIterator   myVector<T>::myend()
 *		typename 的用处就是显式告诉编译器myVector<T>::myIterator是一个类型
 *
-		typename T::size_type GetLength(const T&c)
-		中的T::size_type也是类型，所以前面需要加上typename
+                typename T::size_type GetLength(const T&c)
+                中的T::size_type也是类型，所以前面需要加上typename
 *
 *(2)
 *

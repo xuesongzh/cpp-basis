@@ -1,30 +1,27 @@
-#include<iostream>
-#include<cstdlib>
-#include<string>
-#include<vector>
-#include <memory>
+#include <cstdlib>
+#include <iostream>
 #include <list>
+#include <memory>
+#include <string>
+#include <vector>
 
 using namespace std;
 
-
-int main(void)
-{
-	//list<int, std::allocator<int>>myList;
-	//2
-	list<int>myList;//双向链表，内存中不要求连续
-	myList.push_back(10);
-	myList.push_back(20);
-	myList.push_back(30);
-	myList.push_back(40);
-	myList.push_back(50);
-	for (auto iter=myList.begin();iter!=myList.end();iter++)
-	{
-		cout << *iter << endl;
-		cout <<&(*iter) << endl;
-	}
-	/*
-	 * 10
+int main(void) {
+    // list<int, std::allocator<int>>myList;
+    // 2
+    list<int> myList;  //双向链表，内存中不要求连续
+    myList.push_back(10);
+    myList.push_back(20);
+    myList.push_back(30);
+    myList.push_back(40);
+    myList.push_back(50);
+    for (auto iter = myList.begin(); iter != myList.end(); iter++) {
+        cout << *iter << endl;
+        cout << &(*iter) << endl;
+    }
+    /*
+     * 10
 004BD648
 20
 004BD680
@@ -34,26 +31,24 @@ int main(void)
 004BD6F0
 50
 004BD728
-	总结：内存不连续，底层不是使用内存池技术实现，估计是直接调用malloc()函数
-	 */
+    总结：内存不连续，底层不是使用内存池技术实现，估计是直接调用malloc()函数
+     */
 
+    // 3分配器的使用--自己实现分配器，不建议使用，不是c++语言的要求
+    allocator<int> aalloc;        //定义一个aalloc分配器对象
+    int* p = aalloc.allocate(3);  // allocate()是分配器中的重要函数，用于分配一段原始内存，
+    //分配一段能保存3个int类型的对象，这里为12字节
+    int* q = p;
+    *q = 1;
+    q++;
+    *q = 2;
+    q++;
+    *q = 3;
+    aalloc.deallocate(p, 3);  // deallocate()是分配器中的重要函数，用于释放函数，
+    //释放的首地址和对象的个数
 
-
-	//3分配器的使用--自己实现分配器，不建议使用，不是c++语言的要求
-	allocator<int>aalloc;//定义一个aalloc分配器对象
-	int*p = aalloc.allocate(3);//allocate()是分配器中的重要函数，用于分配一段原始内存，
-	//分配一段能保存3个int类型的对象，这里为12字节
-	int*q = p;
-	*q = 1;
-	q++;
-	*q = 2;
-	q++;
-	*q = 3;
-	aalloc.deallocate(p, 3);//deallocate()是分配器中的重要函数，用于释放函数，
-	//释放的首地址和对象的个数
-	
-	system("pause");
-	return 0;
+    system("pause");
+    return 0;
 }
 
 /*
@@ -76,6 +71,4 @@ list<int, std::allocator<int>>myList;
 *(5)自定义分配器
 *	代码繁琐，并不好写
 *
-*	2019年11月28日21:04:30
-*	Sunrise 于东北电力大学第二教学楼1121实验室
 */
