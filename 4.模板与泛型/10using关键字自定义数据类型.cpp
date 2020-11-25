@@ -7,17 +7,17 @@
 using namespace std;
 //给已经知道的数据类型起个别名
 typedef unsigned int uint;  //给无符号整形起一个别名uint
-using u_int = unsigned int;
+using uint = unsigned int;
 
 typedef std::map<std::string, int> myMap;
-using myMap006 = std::map<std::string, int>;
+using myMap = std::map<std::string, int>;
 
 //如果在开发中定义的类型不固定，如map容器中的key固定，但是值value不固定，使用typedef很难完成。
 // c++98中使用类模板来实现
 template <typename T>
 class map_s {
  public:
-    typedef std::map<std::string, T> mymap02;  //自定义类型，键key是string，值是T类型
+    typedef std::map<std::string, T> mymap;  //自定义类型，键key是string，值是T类型
 };
 
 // c++11实现上述功能
@@ -47,9 +47,9 @@ int main(void) {
     map1.insert({"bbbb", 2});
 
     // key固定，value值不确定
-    map_s<int>::mymap02 map001;
+    map_s<int>::mymap map001;
     map001.insert({"aaaaa", 1});
-    map_s<string>::mymap02 map002;
+    map_s<string>::mymap map002;
     map002.insert({"bbbbb", "2"});
 
     // c++11实现上述功能
@@ -69,7 +69,7 @@ int main(void) {
 /*
 *(1)using 定义模板别名
 *	1.typedef一般用来定义类型别名
-        2.typedef  std::map<std::string, T > mymap02;//自定义类型，键key是string，值是T类型
+        2.typedef  std::map<std::string, T > mymap;//自定义类型，键key是string，值是T类型
 *	3.using用于定义类型或者类型模板的是时候，包含了typedef的所有功能。
                 定义基本类型别名
                 定义类型模板

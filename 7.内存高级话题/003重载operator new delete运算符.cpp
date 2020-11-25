@@ -22,11 +22,10 @@ class A {
     A() {
         cout << "这是类A的构造函数" << endl;
     }
-    ~A() {
-        cout << "这是类a的析构函数" << endl;
-    }
 
- public:
+    ~A() {
+        cout << "这是类A的析构函数" << endl;
+    }
 };
 
 void* A::operator new(size_t size) {
@@ -42,6 +41,7 @@ int main(void) {
     A* a1 = new A();  //调用自己写的operator new函数
     delete a1;        //调用自己的operator delete函数
     //如果想调用系统的new和delete函数  ::new A();  ---::是全局作用域
+    A* a1 = ::new A();
     system("pause");
     return 0;
 }

@@ -29,8 +29,8 @@ class TC<int, int> {  //上面泛化版本的T U参数分别对应这里的int   int
     }
 };
 
-template <>              //全特化，都用double代表
-class TC<double, int> {  //上面泛化版本的T U参数分别对应这里的int   int
+template <>              //全特化
+class TC<double, int> {  //上面泛化版本的T U参数分别对应这里的double   int
                          //这里可以对特化版本做操作
  public:
     void FunctionTest01() {
@@ -52,7 +52,7 @@ int main(void) {
     tint.FunctionTest01();  //调用int,int 特化版本
 
     TC<double, int> tdouble;
-    tdouble.FunctionTest01();  //调用double int版本
+    tdouble.FunctionTest01();  //调用double,int 特化版本
 
     //特化成员函数，而不是类模板
     TC<double, double> tdooo;
@@ -63,23 +63,13 @@ int main(void) {
 }
 
 /*
-*(1)特化---泛化
-*泛化--可以随便指定类型
-*特化--对特殊的类型模板参数进行特殊对待，给它写适合它的专用代码
-*	类模板全特化
-*		1.常规全特化
-*		2.特化成员函数，而不是模板
-*特化版本可以任意多。
-*--------------------------------------------------------
-*泛化版本构造函数
-泛化版本
-int int 特化版本版本
-double int 特化版本版本
-泛化版本构造函数
-double doubel FunctionTest01特化版本版本
-请按任意键继续. . .
-*
-*(3)
-*
-*
-*/
+ *(1)特化---泛化
+ *泛化--可以随便指定类型
+ *特化--对特殊的类型模板参数进行特殊对待，给它写适合它的专用代码
+ *	类模板全特化
+ *		1.常规全特化
+ *		2.特化成员函数，而不是模板
+ *特化版本可以任意多。
+ *
+ *
+ */

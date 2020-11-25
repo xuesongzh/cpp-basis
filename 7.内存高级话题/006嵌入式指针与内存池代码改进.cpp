@@ -31,28 +31,28 @@ class myallocator  //必须保证应用本类的类的sizeof()不少于4字节；否则会崩溃或者报
     //分配内存接口
     void *allocate(size_t size) {
         obj *tmplink;
-        if (m_FreePosi == nullptr) {
+        if (memoryAddr == nullptr) {
             //为空，我要申请内存，要申请一大块内存
-            size_t realsize = m_sTrunkCout * size;  //申请m_sTrunkCout这么多倍的内存
-            m_FreePosi = (obj *)malloc(realsize);
-            tmplink = m_FreePosi;
+            size_t realsize = trunkCnt * size;  //申请m_sTrunkCout这么多倍的内存
+            memoryAddr = (obj *)malloc(realsize);
+            tmplink = memoryAddr;
 
             //把分配出来的这一大块内存（5小块），彼此用链起来，供后续使用
-            for (int i = 0; i < m_sTrunkCout - 1; ++i)  // 0--3
+            for (int i = 0; i < trunkCnt - 1; ++i)  // 0--3
             {
                 tmplink->next = (obj *)((char *)tmplink + size);
                 tmplink = tmplink->next;
             }  // end for
             tmplink->next = nullptr;
         }  // end if
-        tmplink = m_FreePosi;
-        m_FreePosi = m_FreePosi->next;
+        tmplink = memoryAddr;
+        memoryAddr = memoryAddr->next;
         return tmplink;
     }
     //释放内存接口
     void deallocate(void *phead) {
-        ((obj *)phead)->next = m_FreePosi;
-        m_FreePosi = (obj *)phead;
+        ((obj *)phead)->next = memoryAddr;
+        memoryAddr = (obj *)phead;
     }
 
  private:
@@ -60,8 +60,8 @@ class myallocator  //必须保证应用本类的类的sizeof()不少于4字节；否则会崩溃或者报
     struct obj {
         struct obj *next;  //这个next就是个嵌入式指针
     };
-    int m_sTrunkCout = 5;  //一次分配5倍的该类内存作为内存池子的大小
-    obj *m_FreePosi = nullptr;
+    int trunkCnt = 5;  //一次分配5倍的该类内存作为内存池子的大小
+    obj *memoryAddr = nullptr;
 };
 
 //------------------------

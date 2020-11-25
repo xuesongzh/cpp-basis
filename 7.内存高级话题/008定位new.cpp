@@ -20,7 +20,7 @@ class A {
         cout << "调用类A的无参构造函数" << endl;
     }
     A(int m) : m_a(m) {
-        cout << "调用有参数构造函数" << endl;
+        cout << "调用类A的有参数构造函数" << endl;
     }
 
     ~A() {

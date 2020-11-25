@@ -17,7 +17,7 @@ int FunctionTemplate02() {
     return a + b;
 }
 
-//非类型参数--比较字符书否相同
+//非类型参数--比较字符是否相同
 template <int L1, int L2>
 int CharCompare(const char (&p1)[L1], const char (&p2)[L2]) {
     return strcmp(p1, p2);
