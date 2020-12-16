@@ -4,8 +4,7 @@
 using namespace std;
 
 template <typename T>
-void myFunction01(T &&tem)  // T是类型模板参数，T是有类型的,tem是形参，tem也是有类型的
-{
+void myFunction01(T &&tem) {  // T是类型模板参数，T是有类型的,tem是形参，tem也是有类型的
     using boost::typeindex::type_id_with_cvr;
     cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;                //显示T类型
     cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;  //显示tem类型
@@ -15,12 +14,12 @@ int main(void) {
     int i = 18;       // i的类型是int类型，i是个左值。
     myFunction01(i);  //实例化后,我们认为编译器推断后的结构为void myFunction(int& &&tem){}
     myFunction01(12);
-    /*
-         *	T type=int &
-                tem type=int &
-                T type=int
-                tem type=int &&
-         */
+
+    // T type=int &
+    // tem type=int &
+    // T type=int
+    // tem type=int &&
+
     //编译器真正实例化出来的myFunction是什么类型 void myFunction(int&tem){}--引用折叠
 
     // 1.1引用的引用
@@ -40,13 +39,13 @@ int main(void) {
  *
  *	什么情况下出现引用折叠？？
  *	分成两组，第一组是左值引用/右值引用		第二组 左值引用/右值引用
- *			左值引用  左值引用	&		&
+ *			左值引用    左值引用	&		&
  *			左值引用	右值引用	&		&&
  *			右值引用	左值引用	&&		&
  *			右值引用	右值引用	&&		&&
- *		折叠规则：如果任何一个为左值引用，那么结果就是左值引用，否则就是右值引用。--左值具有传染性。
+ *	折叠规则：如果任何一个为左值引用，那么结果就是左值引用，否则就是右值引用。--左值具有传染性。
  *
- *		1.1引用的引用
+ *	1.1引用的引用
  *		不可以显示写，但是编译器内部进行函数模板类型推断的时候可以出现，编译器使用引用折叠规则进行处理。
  *		编译器不允许程序开发者写出引用的引用的代码。
  *	需要引用折叠的场景有：

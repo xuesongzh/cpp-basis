@@ -6,8 +6,7 @@ using namespace std;
 
 class CT {
  public:
-    void myFunction(int x, int y)  //普通成员函数
-    {
+    void myFunction(int x, int y) {
         cout << "x=" << x << endl;
         cout << "y=" << y << endl;
         m_a = x;
@@ -60,9 +59,4 @@ int main(void) {
  * (3)总结：
  *		bind思想，所谓的延迟调用，将可调用对象格式统一，保存起来，需要的时候在调用。
  *		我们用std::function绑定一个可调用对象，类型成员不能绑定，std::bind更加强大，成员函数，成员变量都可以绑定
- *	2019年12月11日12点22分
- *
- * (4)
- * (5)
- * (6)(7)
  */

@@ -51,11 +51,6 @@ int main(void) {
 * (1)decltype的主要用途
 *		2.1应付可变类型--一般应用于模板类型编程中
 *			生成临时对象使用decltype获取类型
-* (2)
-* (3)
-* (4)
-* (5)
-* (6)(7)
 * 错误，vs2015没能编译通过，不知道vs2017能否编译通过
 *	二进制“=”:
 没有找到接受“std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<int>>>”类型的右操作数的运算符(或没有可接受的转换)

@@ -34,11 +34,11 @@ int main(void) {
 
     // 1.指针或者引用类型，但不是万能引用
     const auto &number07 = number01;  // auto =int,number07=const int&
-    auto number08 = number07;  //传值方式，引用和const属性会被抛弃，把对方当作新副本， number08=int ,auto =int
-    auto &number09 = number07;   // auto =const int		number09=const int&  引用属性被丢弃，const属性被保留
-    const auto *p1 = &number01;  // auto =int		p1=const int*
-    auto *p2 = &number01;        // auto=int	p2=int*
-    auto p3 = &number01;         // auto=int*	p3=int*
+    auto number08 = number07;         //传值方式，引用和const属性会被抛弃，把对方当作新副本， number08=int ,auto =int
+    auto &number09 = number07;        // auto =const int		number09=const int&  引用属性被丢弃，const属性被保留
+    const auto *p1 = &number01;       // auto =int		p1=const int*
+    auto *p2 = &number01;             // auto=int	p2=int*
+    auto p3 = &number01;              // auto=int*	p3=int*
 
     // 2.万能引用类型  --函数模板万能引用是T&&   auto万能引用是auto&&
     auto &&number11 = number01;  // number11是左值，auto =int&,number11=int&,这里产生引用折叠

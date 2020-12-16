@@ -15,8 +15,8 @@ class AT {
     void addItem() {
         auto temvalue02 = this->m_temvalue;  //成员变量转局部变量，lambda表达式捕获
         gv02.push_back(                      // c++4中允许在lambda表达式形参列表中使用auto
-                         //[=](auto tv)//按值捕获，解决引用捕获超出范围的问题（引用悬空）=按值，相当于有this
-                         //等价于
+                                             //[=](auto tv)//按值捕获，解决引用捕获超出范围的问题（引用悬空）=按值，相当于有this
+                                             //等价于
             [this](auto tv) {
                 cout << "m_temvalue=" << m_temvalue << endl;  // 7
                 if (tv % m_temvalue == 0)                     //如果tv是temValue的倍数
@@ -56,8 +56,4 @@ int main(void) {
  * [=](auto tv)等价于
  * [this](auto tv)
  * 解决办法：将成员变量赋值到一个局部变量中，捕获局部变量的值。
- * (3)
- * (4)
- * (5)
- * (6)(7)
  */

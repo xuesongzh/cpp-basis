@@ -53,11 +53,10 @@ void* A::operator new(size_t size) {
 }
 
 void A::operator delete(void* pHead) {
-    //让要释放内存空间的内存块指向下一次分配的内存块，将闲置内存链接起来
+    //将要释放内存的指针指向下一块要分配的内存，将闲置内存链接起来
     (static_cast<A*>(pHead))->next = memoryAddr;
-    //将要释放内存的指针指向下一块要分配的内存。链接在一起。
     memoryAddr = static_cast<A*>(pHead);
-    //这种内存不属于真正回收，并没有归还给操作系统。还是归程序管理的。
+    //这种内存不属于真正回收，并没有归还给操作系统。还是归程序管理的
 }
 
 int main(void) {

@@ -27,7 +27,7 @@ int main(void) {
     decltype(myFunction()) number05 = 23;  // int类型
     int a = 1;
     decltype(myFunciton02()) number06 = a;  //这里调用函数返回的是int&类型，但是i是局部变量
-    myFunciton02() = 234;  //语法上没问题，但是局部量i已经被系统回收了，会导致未预料的结果
+    myFunciton02() = 234;                   //语法上没问题，但是局部量i已经被系统回收了，会导致未预料的结果
 
     system("pause");
     return 0;
@@ -38,8 +38,4 @@ int main(void) {
  *	1.3再说(x) 使用不当decltype会导致返回局部引用
  * (2)decltype总结
  *
- * (3)
- * (4)
- * (5)
- * (6)(7)
  */

@@ -12,7 +12,7 @@ T& DoubleMyself(T& value) {
 
 template <typename T>
 decltype(auto) DoubleMyself02(T& value)  //使用auto推断返回值结果
-{  //把auto理解成要推导的类型，推导过程理解为我们采用decltype推导
+{                                        //把auto理解成要推导的类型，推导过程理解为我们采用decltype推导
     value *= 2;
     return value;
 }
@@ -37,8 +37,4 @@ int main(void) {
  *2.4 decltype的主要用途_decltype(auto)用法
  *c++14中存在这种语法，编译器要支持c++14语法
  *	1.用于函数返回类型
- * (3)
- * (4)
- * (5)
- * (6)(7)
  */

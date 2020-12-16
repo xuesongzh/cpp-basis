@@ -6,8 +6,7 @@ using namespace std;
 
 class CT {
  public:
-    void myFunction(int x, int y)  //普通成员函数
-    {
+    void myFunction(int x, int y) {
         cout << "x=" << x << endl;
         cout << "y=" << y << endl;
         m_a = x;
@@ -40,9 +39,4 @@ int main(void) {
  * 总结：
  *	1.将可调用对象可参数绑定在一起，构成一个仿函数，可以直接调用
  *	2.如果函数有多个参数，可以只绑定一部分，其他参数在调用时候指定
- * (2)
- * (3)
- * (4)
- * (5)
- * (6)(7)
  */

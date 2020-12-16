@@ -18,37 +18,37 @@ class embeddedPointer {
  public:
     struct obj {
         struct obj *next;  //指向本身结构的指针，next就是一个嵌入式指针
-    };                     //写入class内部，外部不可见，只能在类内部使用
+    };                     //写在class内部，外部不可见，只能在类内部使用
 };
 
 //二：内存池代码的改进
-//单独的为内存池技术来写一个类,应用本类的类不少于4个字节
+//单独为内存池技术来写一个类
 
 //专门的内存池类
-class myallocator  //必须保证应用本类的类的sizeof()不少于4字节；否则会崩溃或者报错；
+class myallocator  //必须保证应用本类的类的sizeof()不少于4字节，否则会崩溃或者报错；
 {
  public:
     //分配内存接口
     void *allocate(size_t size) {
         obj *tmplink;
         if (memoryAddr == nullptr) {
-            //为空，我要申请内存，要申请一大块内存
+            //为空，申请一大块内存
             size_t realsize = trunkCnt * size;  //申请m_sTrunkCout这么多倍的内存
             memoryAddr = (obj *)malloc(realsize);
             tmplink = memoryAddr;
 
-            //把分配出来的这一大块内存（5小块），彼此用链起来，供后续使用
-            for (int i = 0; i < trunkCnt - 1; ++i)  // 0--3
-            {
+            //把分配出来的这一大块内存（5小块），彼此链接起来，供以后使用
+            for (int i = 0; i < trunkCnt - 1; ++i) {
                 tmplink->next = (obj *)((char *)tmplink + size);
                 tmplink = tmplink->next;
-            }  // end for
+            }
             tmplink->next = nullptr;
-        }  // end if
+        }
         tmplink = memoryAddr;
         memoryAddr = memoryAddr->next;
         return tmplink;
     }
+
     //释放内存接口
     void deallocate(void *phead) {
         ((obj *)phead)->next = memoryAddr;
@@ -73,10 +73,10 @@ class myallocator  //必须保证应用本类的类的sizeof()不少于4字节；否则会崩溃或者报
     }                                          \
     static void operator delete(void *phead) { \
         return myalloc.deallocate(phead);      \
-    }                                          \
-//-----------
+    }
+
 #define IMPLEMENT_POOL_ALLOC(classname) myallocator classname::myalloc;
-//---------------
+
 class A {
     DECLARE_POOL_ALLOC()
 
@@ -119,9 +119,9 @@ int main(void) {
 
 /*
  *(1)嵌入式指针embedded pointer
- *一般应用在内存池相关代码中，使用嵌入式指针有个前提：类A兑现的sizeof不小于4个字节
+ *一般应用在内存池相关代码中，使用嵌入式指针有个前提：类A对象的sizeof不小于4个字节
  *
- *嵌入式指针的工作原理：借用类A对象所占用的内存空间的前4个字节，这4个指针用来链接内存块。
+ *嵌入式指针的工作原理：借用类A对象所占用的内存空间的前4个字节，这4个字节指针用来链接内存块。
  *一旦分配出去，这4个字节的指针占用的位置就不需要保存了，可以存储数据。
  *
  *嵌入式指针代码演示

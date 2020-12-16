@@ -17,7 +17,7 @@ void printTraitsInfo(const T& t) {
     cout << "is_class = " << is_class<T>::value << endl;    //类型是否是一个class
     cout << "is_object = " << is_object<T>::value << endl;  //类型是否是 一个对象类型
     cout << "is_pod = " << is_pod<T>::value
-         << endl;  //是否普通类（只包含成员变量，不包含成员函数）；   POD(plain old data)
+         << endl;                                                                         //是否普通类（只包含成员变量，不包含成员函数）；   POD(plain old data)
     cout << "is_default_constructible = " << is_default_constructible<T>::value << endl;  //是否有缺省构造函数
     cout << "is_copy_constructible = " << is_copy_constructible<T>::value << endl;        //是否有拷贝构造函数
     cout << "is_move_constructible = " << is_move_constructible<T>::value << endl;        //是否有移动构造函数

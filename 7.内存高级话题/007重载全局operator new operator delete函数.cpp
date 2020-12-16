@@ -35,8 +35,6 @@ class A {
     ~A() {
         cout << "调用类A的析构函数" << endl;
     }
-
- public:
 };
 
 int main(void) {
@@ -46,12 +44,12 @@ int main(void) {
 
     char *p2 = new char[100];
     delete[] p2;
-    //会调用重写的全局operator new[] operator delete[]等
+    //会调用重写的全局operator new[] operator delete[]
 
     A *a1 = new A();
     delete a1;
 
-    A *a2 = new A[10];
+    A *a2 = new A[10]();
     delete[] a2;
 
     system("pause");
@@ -59,7 +57,7 @@ int main(void) {
 }
 
 /*
- *(1)重载全局operator new operator delete函数
+ *重载全局operator new operator delete函数
  *如果类中重载了operator new delete运算符，会调用类内部的重载函数。
  *
  */

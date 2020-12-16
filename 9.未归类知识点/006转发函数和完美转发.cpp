@@ -52,9 +52,8 @@ int main(void) {
 
     //通过转发函数调用
     myFunctionTramsmit(myFunction, 34, i);
-    myFunctionTramsmit(myFunction02, 34, i);  //这里返回后i=50,并不是我们期望的51.也就是说，T2并没有实例化为int&类型
-    // void myFunctionTramsmit(void(*f)(int,int&),int t1,, int
-    // t2){}//实例化后的样子，t2这个参数并不是真正传递过去引用类型
+    myFunctionTramsmit(myFunction02, 34, i);  //这里返回后i=50，并不是我们期望的51。也就是说，T2并没有实例化为int&类型
+    // void myFunctionTramsmit(void(*f)(int,int&),int t1,int t2){}//实例化后的样子，t2这个参数并不是真正传递过去引用类型
     //怎么修改传递函数，让模板函数的参数能够保持给定实参的左值性（i有const属性也传递到模板函数中）？？？？
     /*
      *万能引用  T&& 保存实参i的所有属性，从而让编译器推导出来函数模板最终的形参类型
@@ -117,6 +116,4 @@ int main(void) {
 * 1.转发函数
 * 2.左值和右值
 * 3.完美转发std::forward()
-
-* (6)
 */

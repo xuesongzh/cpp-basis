@@ -6,11 +6,10 @@ using namespace std;
 
 //显示参数类型，这里不研究boost库
 template <typename T>
-void myFunction01(T& tem)  // T是类型模板参数，T是有类型的,tem是形参，tem也是有类型的
-{
+void myFunction01(T& tem) {
     using boost::typeindex::type_id_with_cvr;
     cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;                //显示T类型
-    cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;  //显示T类型
+    cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;  //显示tem类型
 }
 
 int main(void) {
@@ -42,7 +41,4 @@ int main(void) {
  * (1)auto类型std::initializer_list的特殊推断
  *	class std::initializer_list<T> c++中引入的类模板，表示某种特定的值的数组
  * (2)auto还可以放在函数返回值类型，以后讲。
- * (4)
- * (5)
- * (6)(7)
  */

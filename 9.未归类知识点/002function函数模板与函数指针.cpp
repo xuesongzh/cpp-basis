@@ -18,11 +18,7 @@ class BiggerThanZero {
  public:
     //重载()函数调用运算符
     int operator()(int value) const {
-        if (value <= 0) {
-            return 0;
-        } else {
-            return value;
-        }
+        return value > 0 ? value : 0;
     }
 
  private:
@@ -49,8 +45,8 @@ int main(void) {
     // myMap.insert({ "bb",b1.operator() });//error,语法错误
     //通过function来声明一个可调用对象
     // function<int(int)>//声明了一个function()类型，用来代表一个可调用对象，代表的是返回值是int类型，接受一个int类型参数
-    function<int(int)> f1 = echoValue;  //函数指针，这里echoValue有函数重载，就会找不到地址，报错
-    function<int(int)> f2 = b1;         //放类对象也ok，类中有运算符重载
+    function<int(int)> f1 = echoValue;           //函数指针，这里echoValue有函数重载，就会找不到地址，报错
+    function<int(int)> f2 = b1;                  //放类对象也ok，类中有运算符重载
     function<int(int)> f3 = BiggerThanZero(12);  //创建一个匿名对象来初始化一个函数模板对象
     f1(43);
     f2(-23);
@@ -80,7 +76,6 @@ int main(void) {
  *
  *注意：
  *	如果函数有重载，就无法通过function来调用，解决办法是使用函数指针来解决。
- *	2019年12月8日22点03分
  *
  *
  */

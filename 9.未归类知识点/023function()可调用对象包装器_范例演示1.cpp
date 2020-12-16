@@ -34,8 +34,8 @@ class CT {
 };
 int main(void) {
     //小案例演示
-    CT ct;  //可调用对象
-    CB cb(ct);  // cb需要可调用对象做参数来构造，ct因为有operator()所以可以转换为std::function<void()>&对象
+    CT ct;             //可调用对象
+    CB cb(ct);         // cb需要可调用对象做参数来构造，ct因为有operator()所以可以转换为std::function<void()>&对象
     cb.runCallBack();  //调用CT中的operator()函数
 
     system("pause");

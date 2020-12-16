@@ -34,7 +34,6 @@ value=6
 value=7
 value=8
 value=9
-2019年12月11日10点29分
 *
 *
 */

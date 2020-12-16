@@ -12,12 +12,7 @@ int main(void) {
     return 0;
 }
 /*
- * (1)ambda表达式中的mutable
+ * (1)lambda表达式中的mutable
  * mutable容易改变的，易变的
  * 不管是不是一个const属性的变量，加上mutable就可以修改它的值。
- * (2)
- * (3)
- * (4)
- * (5)
- * (6)(7)
  */

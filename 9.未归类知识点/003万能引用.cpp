@@ -4,13 +4,11 @@
 using namespace std;
 
 template <typename T>
-void myFunction(const T& value)  // value的类型是const T&
-{
+void myFunction(const T& value) {  // value的类型是const T&
     return;
 }
 
-void myFunction02(int&& tem)  //参数是右值引用类型
-{
+void myFunction02(int&& tem) {  //参数是右值引用类型
     cout << "右值引用函数" << endl;
     return;
 }
@@ -22,22 +20,21 @@ void myFunction02(int&& tem)  //参数是右值引用类型
  *传递右值，编译器推断为T&&类型 int&&
  */
 template <typename T1>
-// void myFunction03(const T1 &&tem)
-void myFunction03(T1&& tem)  //&&属于tem类型的一部分，&&和T类型没有关系
-{
+// void myFunction03(const T1 &&tem) const会剥夺成为右值引用的资格，使其成为右值引用
+void myFunction03(T1&& tem) {  //&&属于tem类型的一部分，&&和T类型没有关系
     cout << "右值引用模板函数" << endl;
     return;
 }
 
 //类模板
-template <typename T2>
+template <typename T>
 class myTest {
  public:
     void testFunction(T&& tem)  //这个是右值引用
     {}
 
-    template <typename T3>
-    void testFunction02(T3&& tem)  //这个是万能引用
+    template <typename T2>
+    void testFunction02(T2&& tem)  //这个是万能引用
     {}
 };
 
@@ -45,7 +42,7 @@ int main(void) {
     myFunction(12);  // T是什么类型，value是什么类型？  T和value的类型往往不同。
     /*
      * T是int类型，value的类型是const int&类型
-     * 调用函数模板时候给的参数10会对T的类型产生影响。
+     * 调用函数模板时候给的参数12会对T的类型产生影响。
      * value的类型会对T的类型产生影响。--value的类型为万能引用，就会对T类型产生影响
      */
 
@@ -78,7 +75,7 @@ int main(void) {
  *(1)类型区别基本概念
  *类型是按照规定的规则读取内存块而划分的。
  *
- *(2)universal reference 万能引用，未定义引用 进本认识
+ *(2)universal reference 万能引用，未定义引用
  *	万能引用需要的语境：
  *		1.必须是函数模板
  *		2.必须发生了模板类型推断并且函数形参的的样子是 T&&（auto也存在万能引用）  T模板类型参数

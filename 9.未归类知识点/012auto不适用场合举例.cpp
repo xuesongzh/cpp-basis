@@ -6,11 +6,10 @@ using namespace std;
 
 //显示参数类型，这里不研究boost库
 template <typename T>
-void myFunction01(T& tem)  // T是类型模板参数，T是有类型的,tem是形参，tem也是有类型的
-{
+void myFunction01(T& tem) {
     using boost::typeindex::type_id_with_cvr;
     cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;                //显示T类型
-    cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;  //显示T类型
+    cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;  //显示tem类型
 }
 
 class TescClass {
@@ -28,7 +27,4 @@ int main(void) {
  *	1.atuo不能使用与函数形参，比如void myfunction(auto x)
  *	2.类中普通成员变量不能使用auto 。static const 允许，但是必须在类内初始化
  *
- * (4)
- * (5)
- * (6)(7)
  */

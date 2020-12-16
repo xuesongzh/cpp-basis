@@ -6,52 +6,46 @@ using namespace std;
 
 //显示参数类型，这里不研究boost库
 template <typename T>
-// void myFunction01(T&tem)//T是类型模板参数，T是有类型的,tem是形参，tem也是有类型的
+// void myFunction01(T &tem)//T是模板类型参数，T是有类型的，tem是形参，tem也是有类型的
 void myFunction01(const T &tem) {
     using boost::typeindex::type_id_with_cvr;
     cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;                //显示T类型
-    cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;  //显示T类型
-}
-
-// 2.1指针或者引用类型
-template <typename T>
-void myFunction02(T &tem)  // tem是引用
-{
-    using boost::typeindex::type_id_with_cvr;
-    cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;                //显示T类型
-    cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;  //显示T类型
+    cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;  //显示形参类型
 }
 
 template <typename T>
-void myFunction03(const T &tem)  //形参是常量引用
-{
+void myFunction02(T &tem) {  // tem是引用
     using boost::typeindex::type_id_with_cvr;
     cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;                //显示T类型
-    cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;  //显示T类型
+    cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;  //显示形参类型
 }
 
 template <typename T>
-void myFunction04(T *tem)  //形参是指针类型
-{
+void myFunction03(const T &tem) {  //形参是常量引用
     using boost::typeindex::type_id_with_cvr;
     cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;                //显示T类型
-    cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;  //显示T类型
+    cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;  //显示形参类型
 }
 
 template <typename T>
-void myFunction05(T &&tem)  //形参是万能引用类型
-{
+void myFunction04(T *tem) {  //形参是指针类型
     using boost::typeindex::type_id_with_cvr;
     cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;                //显示T类型
-    cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;  //显示T类型
+    cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;  //显示形参类型
 }
 
 template <typename T>
-void myFunction06(T tem)  //形参是值类型
-{
+void myFunction05(T &&tem) {  //形参是万能引用类型
     using boost::typeindex::type_id_with_cvr;
     cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;                //显示T类型
-    cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;  //显示T类型
+    cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;  //显示形参类型
+}
+
+template <typename T>
+void myFunction06(T tem) {  //形参是值类型
+    using boost::typeindex::type_id_with_cvr;
+    cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;                //显示T类型
+    cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;  //显示形参类型
 }
 
 void tesFunction() {
@@ -209,7 +203,7 @@ int main(void) {
  *
  *(2)理解模板类型推断
  *	2.1指针或者引用类型
- *			如果tem类型是个指针或者引用，但是不是万能引用
+ *		如果tem类型是个指针或者引用，但是不是万能引用
  *	2.2万能引用--形式参数tem是一个万能引用类型T&&
  *
  *	2.3传值方式
