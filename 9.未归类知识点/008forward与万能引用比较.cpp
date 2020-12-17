@@ -15,7 +15,6 @@ int main(void) {
     myFunction(100);  // 100是右值，T=int,tem=int&&
 
     /*std::forward<int>(ix);转换还是不转换，取决于<>里面的值，可以类比于万能引用，
-     *14行是T=int,tem=int&&类型
      *
      */
 

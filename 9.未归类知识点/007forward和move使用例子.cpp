@@ -3,16 +3,15 @@
 
 using namespace std;
 
-void printInformation(int& tem) {  //类型是左值引用的形参
+void printInformation(int& tem) {
     cout << "形参类型为左值引用的函数" << endl;
 }
-void printInformation(int&& tem) {  //类型是右值引用的形参
+void printInformation(int&& tem) {
     cout << "形参类型为右值引用的函数" << endl;
 }
 
 template <typename T>
-void testTransmit(T&& t)  //万能引用
-{
+void testTransmit(T&& t) {                 //万能引用
     printInformation(t);                   //如果t是右值，T=int t=int&&类型，t本身是左值	如果t是左值，T=int&,t=int&类型，t本身是左值
     printInformation(std::forward<T>(t));  // 按照参数t原来的左值或者右值转发，原来是左值就不变，原来是右值就转成右值
     printInformation(std::move(t));        // move将左值转换为右值

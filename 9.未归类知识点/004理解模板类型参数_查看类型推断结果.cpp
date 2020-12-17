@@ -5,16 +5,9 @@
 using namespace std;
 
 //显示参数类型，这里不研究boost库
-template <typename T>
-// void myFunction01(T &tem)//T是模板类型参数，T是有类型的，tem是形参，tem也是有类型的
-void myFunction01(const T &tem) {
-    using boost::typeindex::type_id_with_cvr;
-    cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;                //显示T类型
-    cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;  //显示形参类型
-}
 
-template <typename T>
-void myFunction02(T &tem) {  // tem是引用
+template <typename T>        //T是模板类型参数，T是有类型的，tem是形参，tem也是有类型的
+void myFunction02(T &tem) {  // 形参是引用
     using boost::typeindex::type_id_with_cvr;
     cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;                //显示T类型
     cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;  //显示形参类型
@@ -52,14 +45,7 @@ void tesFunction() {
     ;
 }
 int main(void) {
-    //(2)void myFunction01(const T&tem)
-    myFunction01(100);
-    /*
-     * T type=int
-     * tem type=int const &
-     */
-
-    // 2.1
+    //形参是引用
     int i = 18;        // int
     const int j = i;   // const int
     const int &k = i;  // const int&类型
@@ -68,18 +54,18 @@ int main(void) {
     myFunction02(j);
     myFunction02(k);
     /*
-         *	T type=int
-                tem type=int &
-                T type=int const
-                tem type=int const &
-                T type=int const
-                tem type=int const &
+     *	T type=int
+        tem type=int &
+        T type=int const
+        tem type=int const &
+        T type=int const
+        tem type=int const &
+
         1.如果实参是引用类型，则引用类型会被忽略掉，T不会被推到为引用类型。
         2.当我们向引用类型的形参tem传递const类型实参时，形参就会成为const&
-                实参的const属性会成为类型模板参数的推导的类型的组成部分，
-                也就是说，实参的const属性会传递。在函数中修改不了原来带const属性的实参。
-
-         */
+        实参的const属性会成为类型模板参数的推导的类型的组成部分，
+        也就是说，实参的const属性会传递。在函数中修改不了原来带const属性的实参。
+     */
 
     //形参是常量引用
     cout << "*******" << endl;
@@ -87,34 +73,33 @@ int main(void) {
     myFunction03(j);
     myFunction03(k);
     /*
-         *  T type=int
-                tem type=int const &
-                T type=int
-                tem type=int const &
-                T type=int
-                tem type=int const &
+     *  T type=int
+        tem type=int const &
+        T type=int
+        tem type=int const &
+        T type=int
+        tem type=int const &
 
         1.如果实参是引用类型，则引用类型会被忽略掉，T不会被推到为引用类型。
         2.对于有const属性的实参，推导后T中的const属性没有了，因为模板函数myFunction03的形参tem出现了const。实参const替换掉形参const
 
-         */
+    */
 
     //指针类型
     const int *pi = &i;
-    cout << "&&&&&&&&&" << endl;
     myFunction04(&i);
     myFunction04(pi);
     /*
-         *  T type=int
-                tem type=int *
-                T type=int const
-                tem type=int const *
+     *  T type=int
+        tem type=int *
+        T type=int const
+        tem type=int const *
         结论：如果tem形参中没有const，则实参中的const就会传递到T类型中去。如果形参中有const，则T类型中不会带const。
 
-         */
+     */
 
-    //*	2.2万能引用--形式参数tem是一个万能引用类型T&&
-    cout << "2.2------------------------" << endl;
+    //形参是万能引用类型T&&
+    cout << "------------------------" << endl;
     myFunction05(i);  //左值
     myFunction05(j);  //左值
     myFunction05(k);
@@ -128,36 +113,34 @@ int main(void) {
         tem type=int const &
         T type=int
         tem type=int &&
-         */
+    */
 
-    // 2.3传值方式 如果形式参数tem是常规的传值方式传递
-    cout << "2.3------------------------" << endl;
+    // 形参是常规的传值方式传递
+    cout << "------------------------" << endl;
     myFunction06(i);
     myFunction06(j);
     myFunction06(k);
     /*
-         *  T type=int
-                tem type=int
-                T type=int
-                tem type=int
-                T type=int
-                tem type=int
+     *  T type=int
+        tem type=int
+        T type=int
+        tem type=int
+        T type=int
+        tem type=int
         const属性没有传递进去，因为形式参数是一个新副本。怎么传递进去const属性？？？-->传递指针进去
-         */
+     */
+
     char myStr[] = "jisuanjizuchengyhuanli";
     const char *const point = myStr;  //第一个const修饰内存空间，第二个表示指针的指向不能改变
-    cout << "jjjjjjjjjjjjjjjj" << endl;
     myFunction06(point);
     /*
-         T type=char const *
-         tem type=char const *
+        T type=char const *
+        tem type=char const *
         传递const char*或者const char[]第一个const保留。
-         */
+     */
 
-    // 2.4数组做实参
+    // 数组做实参
     const char mystr02[] = "jisuanjizuchegnaun";
-    cout << "22222222222222222222222" << endl;
-
     myFunction06(mystr02);
     myFunction02(mystr02);  //调引用--推导成数组
     /*
@@ -165,21 +148,18 @@ int main(void) {
         tem type=char const *
         T type=char const [19]
         tem type=char const (&)[19]//代表数组的引用
-        */
+    */
 
-    //	2.5函数名做实参，函数名相当于函数首地址，可以赋值给一个函数指针
-    cout << "6666666666666" << endl;
+    // 函数名做实参，函数名相当于函数首地址，可以赋值给一个函数指针
     myFunction06(tesFunction);
-
     myFunction02(tesFunction);  //引用
     /*
         T type=void (__cdecl*)(void)//函数指针类型
         tem type=void (__cdecl*)(void)
         T type=void __cdecl(void)//函数指针引用
         tem type=void (__cdecl&)(void)
-         */
+    */
 
-    cout << "helloWorld" << endl;
     system("pause");
     return 0;
 }
@@ -214,7 +194,7 @@ int main(void) {
  *(3)总结：
  *	1.推断中，引用类型实参的引用类型等于不存在
  *	2.万能引用中，实参为右值和左值，推断出来的结果不同
- *	3.按值传递的实参，传递给形参时const属性不起作用，则传递过去指针可能起作用。
+ *	3.按值传递的实参，传递给形参时const属性不起作用，传递过去指针可能起作用。
  *	4.数组或者函数类型在推断中被看作指针，除非函数模板的形参是个引用。
  *
  */
