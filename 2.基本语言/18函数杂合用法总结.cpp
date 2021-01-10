@@ -8,7 +8,7 @@ void myFunction() {
 void myFunction02()  //(1)
 {
     return myFunction();  //这种可以
-                          //return;	//	也可以
+    //return;	         //	也可以
 }
 
 int* myFunction03()  //问题2--返回指针
@@ -40,12 +40,12 @@ struct Student {
     string str;
 };
 
-void myFunction08(Student& stu)  //(06)引用，会修改外部的值
+void myFunction08(Student& stu)  //(6)引用，会修改外部的值
 {
     stu.number = 10000;
 }
 
-//（07）函数重载
+//（7）函数重载
 void myFunction09(int i) {
 }
 void myFunction09(float i) {

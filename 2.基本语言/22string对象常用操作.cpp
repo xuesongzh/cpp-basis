@@ -39,7 +39,7 @@ int main(void) {
         cout << "s7==s8" << endl;  //成立。前面进行赋值了
     }
 
-    //c语言中的老代码精华藏需要这么转换
+    //c语言中的老代码需要这么转换
     string s9 = "abcde";
     string s10 = "abCde";
     const char* p = s10.c_str();  //p指向字符串的起始位置的指针

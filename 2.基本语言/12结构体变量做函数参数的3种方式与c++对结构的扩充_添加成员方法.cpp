@@ -37,7 +37,6 @@ struct Teacher {
     //成员属性，也叫方法
     //void functionInc(int number)
     void functionInc()  //	调用成员变量不需要写参数
-
     {
         number++;
         return;

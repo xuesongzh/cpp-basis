@@ -18,7 +18,7 @@ class Human {
     ~Human() {
         cout << "Human析构函数" << endl;
     }
-    //友元函数
+    //友元函数不属于类成员，不受访问权限控制
     friend void myFriendFunction01(const Human& temHuman);  //声明这个函数是Human的友元函数
 };
 
@@ -45,9 +45,8 @@ int main(void) {
     return 0;
 }
 /*
-*(1)普通函数做类友元函数，
-*3种访问权限：public,protected,private.
-*只要让函数成为类的友元函数，就可以访问类的所有成员（包括成员函数和成员变量（public ,protected private））都可以
+*普通函数做类友元函数
+*只要让函数成为类的友元函数，就可以访问类的所有成员（包括成员函数和成员变量（public ,protected private））
 *
 *	在类内部声明友元函数，使用 friend 函数声明
 *	在类外部定义友元函数

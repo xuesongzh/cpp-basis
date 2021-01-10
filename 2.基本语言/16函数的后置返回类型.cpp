@@ -2,10 +2,10 @@
 #include <iostream>
 using namespace std;
 
-void funcionTest(int, int);  //函数声明
-//void funcionTest(int a, int b);	//函数声明--建议写法
+// void funcionTest(int, int);  //函数声明
+void funcionTest(int a, int b);  //函数声明--建议写法
 
-//从语法上说，可以传递过来一个参数用于测试等操作，但是不使用，
+//从语法上说，可以传递过来一个参数用于测试等操作，但是不使用
 void functionTest(int a, int)  //函数定义
 {
     return;
@@ -39,10 +39,6 @@ int main(void) {
 *		
 *		为什么需要后置返回类型？？
 *		主要是一个类或者函数的返回值非常复杂，写在后面清晰。
-*
-*	question：
-*	（1）前置返回类型与后置返回类型
-*		为什么需要后置返回类型？？
-*		怎么改为后置返回类型？？auto  ->
+*       怎么改为后置返回类型？？auto  ->
 * 
 */

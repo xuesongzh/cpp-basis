@@ -31,7 +31,7 @@ int main(void) {
     B b;
     A a = static_cast<A>(b);  //把子类转换成父类对象   子类是特殊的父类对象
 
-    //(3)void*(五类型指针)与其他类型指针之间的转换
+    //(3)void*指针与其他类型指针之间的转换
     int number10 = 10;
     int* p = &number10;
     void* p2 = static_cast<void*>(p);
@@ -78,7 +78,7 @@ int main(void) {
 *		可用于：
 *			（1）相关类型转换  整形---浮点型
 *			（2）后续学习类中的子类转换成父类
-*			(3)void*(五类型指针)与其他类型指针之间的转换
+*			(3)void*(无类型指针)与其他类型指针之间的转换
 *		不可用于：
 *			（1）一般不可以用于指针类型之间的转换 float*--int*--double*等之间的转换
 *	2.dynamic_cast

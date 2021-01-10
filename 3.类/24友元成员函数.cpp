@@ -3,20 +3,18 @@
 #include <iostream>
 #include <string>
 #include <vector>
+
+using namespace std;
 class A;
 
-//class C;	//因为不仅仅用到了C的类声明，而且包含了里面的函数。甩下面的形式
+//class C;	//因为不仅仅用到了C的类声明，而且包含了里面的函数。用下面的形式
 class C {
  private:
     int number03;
 
  public:
-    void myFunctionC(int x, A& a);
-
- public:
+    void myFunctionC(int x, A& a);  //必须是public，才能成为别的类的友元函数
 };
-
-using namespace std;
 
 class A {
     friend class B;  //这里还没有定义类B，但是没报错，如果有的编译器报错，可以在前面加一个类声明 class B;
@@ -60,7 +58,7 @@ int main(void) {
     return 0;
 }
 /*
-*(1)友元成员函数--有的时候不需要让类中的所有成员函数都去访问另一个类的成员函数和成员变量。而只需要一个成员函数去访问
+*友元成员函数--有的时候不需要让类中的所有成员函数都去访问另一个类的成员函数和成员变量。而只需要一个成员函数去访问
 *
 *总结：
 *	(1)friend允许在特定情况下访问类的成员属性和成员函数。

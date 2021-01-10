@@ -29,7 +29,7 @@ int main(void) {
 	cout << Number1.size() << endl;*/
 
     //5访问容器元素
-    cout << Number1[3] << endl;  //输出编号为0的值
+    cout << Number1[0] << endl;  //输出编号为0的值
 
     //6
     vector<int> Number2;
@@ -73,7 +73,7 @@ int main(void) {
 }
 
 /*
-* (1)vector对象的操作。最见得情况是我们不知道vector中包含多少元素，在使用过程中动态的创建和减少。
+* (1)vector对象的操作。最常见的情况是我们不知道vector中包含多少元素，在使用过程中动态的创建和减少。
 * 所以一般都是先创建空的vector对象。
 * 很多操作和string类似
 * 

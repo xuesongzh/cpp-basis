@@ -12,7 +12,7 @@ void functionSwap(int &num1, int &num2)  //使用引用来交换两个值
 
 int main007(void) {
     int value = 10;
-    int &refValue = value;  //value的别名就是refValue，这里&不是去地址运算符，不要使用c语言去解释c++
+    int &refValue = value;  //value的别名就是refValue，这里&不是取地址运算符，不要使用c语言去解释c++
     refValue = 20;
     cout << value << endl;
     //定义引用并不额外占用空间，或者理解为占用同一块内存（实际并不占有同一块内存）

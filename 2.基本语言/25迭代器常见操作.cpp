@@ -18,9 +18,8 @@ int main(void) {
     //大家在理解的时候vector<int>::iterator就是一种类型，这种类型就是迭代器类型。用这个数据类型定义一个变量就是迭代器
 
     //迭代器begin() end()操作
-    iter = Number1.begin();  //如果容器中有元素，返回的是迭代器，指向容器中的第一个元素。
-    //相当于iter指向编号为0的元素
-    iter = Number1.end();  //返回的并不是最后一个元素，而是最后一个元素的下一个位置。理解为end()指向不存在的一个位置
+    iter = Number1.begin();  //如果容器中有元素，返回的是迭代器，指向容器中的第一个元素，相当于iter指向编号为0的元素
+    iter = Number1.end();    //返回的并不是最后一个元素，而是最后一个元素的下一个位置。理解为end()指向不存在的一个位置
 
     //如果是一个空容器，那么begin()和end()返回的就相同了
     vector<int> Number2;
@@ -64,7 +63,7 @@ int main(void) {
     }
 
     //(5)cbegin cend
-    for (auto iter05 = Number04.cbegin(); iter05 != Number04.end(); iter05++) {
+    for (auto iter05 = Number04.cbegin(); iter05 != Number04.cend(); iter05++) {
         //*iter05 = 6;//error
         cout << *iter05 << endl;
     }
@@ -90,7 +89,7 @@ int main(void) {
 *
 *	如vector和string中可以通过下标运算符[]来访问元素，其实在c++中很少通过下标来访问，一般通过迭代器来访问。
 *	通过迭代器，我们可以读容器中的元素值，读string中的每个字符，还可以修改某个迭代器所指向的元素值。迭代器也有++  --等操作
-*	尽量使用迭代器来访问迭代器中的元素。
+*	尽量使用迭代器来访问容器中的元素。
 *
 *（2）容器的迭代器类型
 *	每一种容器中都会定义一个iterator的成员，是固定的
@@ -105,7 +104,7 @@ int main(void) {
 *	*iter--返回迭代器iter所指向的元素的引用。必须要保证迭代器指向的是有效的元素。不能指向end()
 *	++iter  iter++ 迭代器指向下一个元素。指向end()不能再++
 *	--iter iter--指向容器中的上一个元素
-*	iter1==iter2 != 判断两个迭代器是否相等===
+*	iter1==iter2 != 判断两个迭代器是否相等
 *
 *（4）const_iterator迭代器--一般表示常量迭代器，表示不能通过迭代器去修改容器中元素的值。迭代器本身的指向是可以改变的。
 *	感觉起来有点像常量指针。
