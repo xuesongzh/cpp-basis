@@ -31,15 +31,14 @@ Time::Time()  //默认时间是10：10：10
     Second = 10;
 }
 
-//普通函数带默认构造函数
+//普通函数带默认参数
 int functionSum(int a, int b = 10) {
     return a + b;
 }
 
-//int functionSum(int a)
-//{
-//	return a;
-//}
+int functionSum(int a) {
+    return a;
+}
 
 int main(void) {
     //创建类对象
@@ -50,7 +49,7 @@ int main(void) {
     Time myTime05 = {13, 13, 45};
 
     //Time myTime06();	//vs1015编译通过，但是不是调用无参构造函数，也不是调用有参数构造函数，系统有处理
-    Time myTime07;  //下面都是调用无参构造函数，
+    Time myTime07;  //下面都是调用无参构造函数
     Time myTime08 = Time();
     Time myTime09{};
     Time myTime10 = {};
@@ -64,9 +63,9 @@ int main(void) {
 
     //（3）构造函数带默认参数
     Time myTime25(12, 12);
-    //(3)普通函数带默认参数
-    int Number01 = functionSum(33, 13);  //错误--有多个函数实例与函数调用匹配
-    int Number02 = functionSum(10);
+    //普通函数带默认参数
+    int Number01 = functionSum(33, 13);
+    // int Number02 = functionSum(10);  //错误--有多个函数实例与函数调用匹配
 
     system("pause");
     return 0;

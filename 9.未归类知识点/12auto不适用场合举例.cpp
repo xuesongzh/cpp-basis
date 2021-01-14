@@ -23,8 +23,8 @@ int main(void) {
     return 0;
 }
 /*
- * (1)auto不适用场合举例
- *	1.atuo不能使用与函数形参，比如void myfunction(auto x)
- *	2.类中普通成员变量不能使用auto 。static const 允许，但是必须在类内初始化
+ * auto不适用场合举例
+ *	1.atuo不能使用于函数形参，比如void myfunction(auto x)
+ *	2.类中普通成员变量不能使用auto ，static const 允许，但是必须在类内初始化
  *
  */

@@ -42,7 +42,7 @@ class C : public B1, public B2  //派生列表
     int c;
     C(int i, int j, int k) : B1(i, j), B2(i, j), c(k)  //自己的版本
     {
-        cout << "c构造函数执行" << endl;
+        cout << "C构造函数执行" << endl;
     }
     //using B1::B1;
     //using B2::B2;
@@ -67,7 +67,7 @@ int main(void) {
 }
 
 /*
-*(1)从多个父类继承构造函数
+*从多个父类继承构造函数
 *	如果一个类从它的基类中继承了相同的构造函数，这个类必须为该构造函数定义自己的版本。
 *
 */

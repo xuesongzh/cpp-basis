@@ -15,21 +15,21 @@ class GrandFather1 {
         cout << "GrandFather1的析构函数执行" << endl;
     }
     void myInfo() {
-        cout << "我是GrandFather01" << myValueGrand << endl;
+        cout << "我是GrandFather1" << myValueGrand << endl;
     }
 };
 
-class GrandFather02 {
+class GrandFather2 {
  public:
-    int myValueGrand02;
+    int myValueGrand2;
 
  public:
-    GrandFather02(int i) : myValueGrand02(i) {}
-    virtual ~GrandFather02() {
-        cout << "GrandFather1的析构函数执行" << endl;
+    GrandFather2(int i) : myValueGrand2(i) {}
+    virtual ~GrandFather2() {
+        cout << "GrandFather2的析构函数执行" << endl;
     }
     void myInfo() {
-        cout << "我是GrandFather02" << endl;
+        cout << "我是GrandFather2" << endl;
     }
 };
 
@@ -42,7 +42,6 @@ class Father : public GrandFather1 {
     Father(int i, int k) : GrandFather1(i), myValueFather(k) {
         ;
     }
-    //Father的析构函数
     virtual ~Father() {
         cout << "这是Father类的析构函数" << endl;
     }
@@ -67,13 +66,13 @@ class Son : public Father {
 };
 //类Father02同时继承两个GrandFather类
 
-class Father02 : public GrandFather1, public GrandFather02 {
+class Father2 : public GrandFather1, public GrandFather2 {
  public:
     int myVlaueFather02;
 
  public:
-    Father02(int i, int j, int k) : GrandFather1(i), GrandFather02(j), myVlaueFather02(k) {}
-    virtual ~Father02() {
+    Father2(int i, int j, int k) : GrandFather1(i), GrandFather2(j), myVlaueFather02(k) {}
+    virtual ~Father2() {
         cout << "这是类Father02类的析构函数" << endl;
     }
     void myInfo() {
@@ -81,20 +80,20 @@ class Father02 : public GrandFather1, public GrandFather02 {
     }
 };
 
-class Son02 : public Father02 {
+class Son2 : public Father2 {
  public:
     int myValueSon02;
 
  public:
-    Son02(int i, int j, int k, int m) : Father02(i, j, k), myValueSon02(m) {
+    Son2(int i, int j, int k, int m) : Father2(i, j, k), myValueSon02(m) {
         ;
     }
 };
 
 int main(void) {
-    Father02 my_father01(1, 2, 3);        //先调用两个GrandFather的构造函数
-    my_father01.myInfo();                 //调用Father02类的函数
-    my_father01.GrandFather02::myInfo();  //调用父类的myInfo函数
+    Father2 myfather(1, 2, 3);         //先调用两个GrandFather的构造函数
+    myfather.myInfo();                 //调用Father2类的函数
+    myfather.GrandFather2::myInfo();  //调用父类的myInfo函数
 
     system("pause");
     return 0;
@@ -106,9 +105,10 @@ int main(void) {
 *c继承自B，B继承自A，那么叫多层继承。C-->B-->A
 *
 *
-*(2)继承关系son-->father-->grandfather
+*(2)继承关系
+*son-->Father-->Grandfather1
 *
-*son2--Father02-->GranFather1,GrandFather02
+*son2-->Father2-->GranFather1,GrandFather2
 *
 *
 *

@@ -12,7 +12,7 @@ class Time {
 
  public:
     explicit Time(int Hour, int Minute, int Second);
-    Time(Time& TemTime);
+    Time(const Time& TemTime);
     Time(int Hour);
     Time() = default;
 
@@ -28,7 +28,7 @@ Time::Time(int Hour) {
     this->Hour = Hour;
 }
 //¿½±´¹¹Ôìº¯Êý
-Time::Time(Time& TemTime) {
+Time::Time(const Time& TemTime) {
     this->Hour = TemTime.Hour;
     this->Minute = TemTime.Minute;
     this->Second = TemTime.Second;

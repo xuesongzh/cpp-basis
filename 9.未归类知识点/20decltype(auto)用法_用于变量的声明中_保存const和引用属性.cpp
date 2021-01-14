@@ -17,8 +17,7 @@ int main(void) {
     int number01 = 12;
     const int &reference = 23;
     auto number02 = reference;  // const属性和引用都没有传递
-    decltype(auto) number03 =
-        reference;  // number03=const int& .auto丢掉的东西（const和引用），能够通过decltype(auto)捡回来
+    decltype(auto) number03 = reference;  // number03=const int&  auto丢掉的东西（const和引用），能够通过decltype(auto)捡回来
 
     // 1.3再说(x)
     int number04 = 234;

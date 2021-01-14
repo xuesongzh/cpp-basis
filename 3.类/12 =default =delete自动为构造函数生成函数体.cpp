@@ -27,7 +27,6 @@ Time::Time(int Hour) {
 int main(void) {
     Time myTime01 = Time(12, 12, 12);
 
-    //默认构造函数
     Time myTime02;  //默认构造函数
     system("pause");
     return 0;
@@ -35,9 +34,7 @@ int main(void) {
 
 /*
 *(1)=default =delete
-	Time() = default; 编译器能够自动为我们生成函数体，用于特殊的函数
-	只能用于构造函数，拷贝构造函数等特殊函数
+	Time() = default; 编译器能够自动为我们生成函数体，只能用于构造函数，拷贝构造函数等特殊函数
 *(2)Time() = delete;	//让编译器禁止生成某个函数
-*(3)
 *
 */

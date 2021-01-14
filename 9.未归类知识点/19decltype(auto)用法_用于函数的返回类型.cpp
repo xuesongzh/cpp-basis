@@ -18,8 +18,7 @@ decltype(auto) DoubleMyself02(T& value)  //使用auto推断返回值结果
 }
 
 int main(void) {
-    // 2.4 decltype的主要用途_decltype(auto)用法
-    // 1.用于函数返回类型
+    // 用于函数返回类型
     int number01 = 100;
     DoubleMyself(number01) = 20;              //返回的是左值引用，所以可以赋值
     cout << "number01=" << number01 << endl;  // 20

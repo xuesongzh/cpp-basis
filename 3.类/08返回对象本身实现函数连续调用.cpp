@@ -16,7 +16,7 @@ class Time {
     Time() {}
 
  public:
-    //返回对象自身的应用，返回对象自身
+    //返回对象自身的引用
     Time& AddHour(int TemHour);
     //Time&AddHour(Time *const this,int TemHour);	//等价于这种，隐藏this指针
     Time& AddMinute(int TemMinute);

@@ -17,7 +17,7 @@ class Time {
 
  public:
     void AddHour(int TemHour) const {
-        //用mutable修饰一个成员变量，就表示这个成员变量永远处于可以修改状态，及时在const常成员函数中.
+        //用mutable修饰一个成员变量，就表示这个成员变量永远处于可以修改状态，即使在const常成员函数中
         Hour = Hour + TemHour;
     }
 };

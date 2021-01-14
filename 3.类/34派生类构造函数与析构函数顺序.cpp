@@ -41,7 +41,7 @@ class C : public B1, public B2  //派生列表
  public:
     int c;
     C(int i, int j, int k) : B1(i, j), B2(i, j), c(k) {
-        cout << "c构造函数执行" << endl;
+        cout << "C构造函数执行" << endl;
     }
 
  public:
@@ -63,7 +63,7 @@ void playObject() {
 	B1构造函数执行
 	A构造函数执行
 	B2构造函数执行
-	c构造函数执行
+	C构造函数执行
 	C析构函数
 	B2析构函数
 	A析构函数

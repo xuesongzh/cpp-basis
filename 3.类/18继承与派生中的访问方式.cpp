@@ -6,7 +6,6 @@
 using namespace std;
 
 class Human {
- private:
  public:
     //构造函数
     Human();
@@ -20,7 +19,7 @@ class Human {
     string str;  //名字
     void myPubFunction() { ; }
 
- public:  //父类的同名函数构成函数重载
+    //父类的同名函数构成函数重载
     void myFunction();
     void myFunction(int tem);
 
@@ -83,14 +82,15 @@ Man::Man() {
 int main(void) {
     Man m1;  //先调用父类的构造函数，然后调用子类的构造函数
     m1.age = 12;
-    m1.str = "白乾龙";
+    m1.str = "zzz";
 
     m1.myPubFunction();  //子类可以调用父类的public成员函数,
 
     //如果子类和父类有同名函数，那么子类对象只能调用子类的函数，不能调用父类的重载的函数
     m1.myFunction(123);
-    /*如果确实想调用父类的成员函数，1.在子类的成员函数中，可以使用 父类名字：：同名函数名 强制调用父类函数
-	 *2.using using namespace
+    /*如果确实想调用父类的成员函数
+     *1.在子类的成员函数中，可以使用 父类名字::同名函数名 强制调用父类函数
+	 *2.using Human::myFunction;
 	 *c++11中，让父类同名函数在子类中可见
 	 *通过using这个关键字，让父类的同名函数在子类中可见，说白了就是让父类同名函数在子类中以重载的方式实现。
 	 *

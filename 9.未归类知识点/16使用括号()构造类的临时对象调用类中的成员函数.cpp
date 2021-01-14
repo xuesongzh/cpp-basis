@@ -36,6 +36,4 @@ int main(void) {
     system("pause");
     return 0;
 }
-/*
- * (1)使用括号()构造类的临时对象调用类中的成员函数
- */
+

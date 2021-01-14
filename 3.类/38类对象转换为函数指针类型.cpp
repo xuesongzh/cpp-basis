@@ -20,7 +20,6 @@ class TypeConversion  //功能：将一个数字转换为0-100存储下来
     }
     //新的类型转换运算符，将本类类型转换为一个函数指针类型
     operator myFunction() {
-        //必须要返回一个函数指
         return myfunc;  //函数名字（函数地址）返回即可
     }
 
@@ -55,23 +54,15 @@ int main(void) {
 
     TypeConversion tc02(22);  //调用类型转换构造函数，但是没有隐式类型转换
     tc02(123);                //看起来是个可调用对象的感觉
-    /*这一行调用了两个函数-------------------------------------------------
+    /*这一行调用了两个函数
 	 * 调用operator myFunction()类型转换函数返回一个函数指针，然后调用对应的函数。  
 	 */
     //显式调用
     tc02.operator TypeConversion::myFunction()(123);
     /*
-	 * tc02.operator TypeConversion::myFunction()返回的是函数地址，然后调用函数地址
+	 * tc02.operator TypeConversion::myFunction()返回的是函数地址，然后调用函数
 	 */
 
     system("pause");
     return 0;
 }
-
-/*
-*
-*(1)类对象转换为函数指针
-*	
-*
-*
-*/

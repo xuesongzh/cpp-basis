@@ -43,7 +43,8 @@ int main(void) {
     for (map<string, int>::iterator iter = myMap.begin(); iter != myMap.end(); iter++) {
         cout << iter->first << "=" << iter->second << endl;
     }
-    //可以使用auto代替类型
+    
+    //1.可以使用auto代替类型
     for (auto iter = myMap.begin(); iter != myMap.end(); iter++) {
         cout << iter->first << "=" << iter->second << endl;
     }
@@ -56,9 +57,9 @@ int main(void) {
     return 0;
 }
 /*
- * (1)auto适用场合举例
+ * auto适用场合举例
  *	1.代替很长的类型名字，如迭代器
  *	2.当没有办法确定类型的时候，使用auto
- * (2)总结：
+ * 总结：
  *	auto表面上是一个关键字，也可以看作一个强大的工具，善于利用。
  */

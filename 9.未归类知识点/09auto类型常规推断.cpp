@@ -10,33 +10,24 @@ void myFunction01(T &tem)  // T是类型模板参数，T是有类型的,tem是�
 {
     using boost::typeindex::type_id_with_cvr;
     cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;                //显示T类型
-    cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;  //显示T类型
+    cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;  //显示tem类型
 }
 
 int main(void) {
     int number01 = 18;
     const int number02 = number01;
     const int &number03 = number01;
-    myFunction01(number01);  // T=int  tem=int&类型
+    myFunction01(number01);  // T=int  tem=int&
     myFunction01(number02);  // T=int const tem=const int&
     myFunction01(number03);  // T=int const tem=const int& 引用会被忽略，传递不过去
-    /*
-        T type=int
-        tem type=int &
-        T type=int const
-        tem type=int const &
-        T type=int const
-        tem type=int const &
-         */
 
-    // (1)auto类型常规推断
     auto number04 = 23;  // number04是int类型，auto是int类型占位符
 
-    // 1.指针或者引用类型，但不是万能引用
-    const auto &number07 = number01;  // auto =int,number07=const int&
-    auto number08 = number07;         //传值方式，引用和const属性会被抛弃，把对方当作新副本， number08=int ,auto =int
-    auto &number09 = number07;        // auto =const int		number09=const int&  引用属性被丢弃，const属性被保留
-    const auto *p1 = &number01;       // auto =int		p1=const int*
+    // 1.指针或者引用类型
+    const auto &number07 = number01;  // auto=int   number07=const int&
+    auto number08 = number07;         // auto=int   number08=int 引用和const属性会被抛弃，把对方当作新副本
+    auto &number09 = number07;        // auto=const int	  number09=const int&  引用属性被丢弃，const属性被保留
+    const auto *p1 = &number01;       // auto=int		p1=const int*
     auto *p2 = &number01;             // auto=int	p2=int*
     auto p3 = &number01;              // auto=int*	p3=int*
 
@@ -46,7 +37,7 @@ int main(void) {
     auto &&number13 = number12;  // auto=int&，number13=const int&
     auto &&number14 = 234;       //赋值是右值  --auto=int,number14=int&&
 
-    // 3.传值方式，非指针，非引用--
+    // 3.传值方式，非指针，非引用
     auto number05 = 234;
     const auto number06 = number05;  // auto =int number06=const int
 
@@ -66,7 +57,7 @@ int main(void) {
  *	然后在编译期间使用真正的类型替换掉auto这个类型占位符。
  *3.auto使用灵活，可以和指针，引用，const等限定符结合使用。
  *4.auto类型推断和函数模板推断非常类似。auto推导后代表一个具体类型。
- *	auto实际上是一个类型，实际上相当于函数模板推导中的类型模板参数T。auto也是类型声明中的一部分。
+ *	auto实际上是一个类型，相当于函数模板推导中的类型模板参数T。auto也是类型声明中的一部分。
  *	可以把auto当作类型占位符
  *
  *

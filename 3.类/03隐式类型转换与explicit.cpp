@@ -31,10 +31,9 @@ void functionTransform(Time TemTime) {
 
 int main(void) {
     Time myTime01 = 12;
+    Time myTime02 = {16};  //大括号内部可以当做一个对象
     //Time myTime03(12, 23, 43, 54);	//错误
-    Time myTime04 = {16};
-    //大括号内部可以当做一个对象·	--如果带一个参数的构造函数加explicit就会进行隐式类型转换，都会错误
-    Time myTime02 = (12, 23, 43, 54);  //会调用单参数的构造函数--相当于逗号表达式，最后是Hour=54
+    Time myTime04 = (12, 23, 43, 54);  //会调用单参数的构造函数--相当于逗号表达式，最后是Hour=54
 
     functionTransform(12);  //首先会调用一个参数的构造，构造一个Time临时对象
 
@@ -44,7 +43,7 @@ int main(void) {
     Time myTime07 = (2, 12, 34);  //正确，调用构造函数
     /*
 	 * 总结：一般可以认为()是参数，{}是一个对象
-	 * (1)对于单个参数的构造函数，一般声明为explicit,除非有特殊原因。
+	 * 对于单个参数的构造函数，一般声明为explicit，除非有特殊原因。
 	 */
 
     system("pause");

@@ -31,7 +31,7 @@ class Time {
 
  public:
     //拷贝构造函数
-    Time(Time& myTime, int TemHour = 10, int TemＭinute = 10, int TemSecond = 10);
+    Time(const Time& myTime);
 };
 
 Time::Time(int TemHour, int TemMinute, int TemSecond) : Hour(TemHour), Minute(TemMinute), Second(TemSecond)  //把形式参数赋值给成员属性
@@ -39,9 +39,9 @@ Time::Time(int TemHour, int TemMinute, int TemSecond) : Hour(TemHour), Minute(Te
 }
 
 //拷贝构造函数
-Time::Time(Time& mytime /*这个是需要拷贝的对象*/, int temhour, int temｍinute, int temsecond) : Hour(12), Minute(12), Second(12) {
+Time::Time(const Time& mytime /*这个是需要拷贝的对象*/) {
     cout << "这是time类的拷贝构造函数" << endl;
-    //this->hour = mytime.hour;	//ok
+    this->Hour = mytime.Hour;  //ok
 }
 
 void myFunciton01(Time Te) {
@@ -50,15 +50,15 @@ void myFunciton01(Time Te) {
 
 Time myFunction02() {
     Time t;
-    return t;
+    return t;  //调用拷贝构造函数创建一个临时对象返回
 }
 int main(void) {
     Time myTime01 = Time(12, 12, 12);
 
     //Time myTime02;	//调用默认构造函数
     //myTime02 = myTime01;	//这里不是调用拷贝构造函数
-    //下面都是执行拷贝构造函数
 
+    //下面都是执行拷贝构造函数
     //Time myTime03(myTime01);
     //Time myTime04{ myTime01 };
     //Time myTime05={ myTime01 };

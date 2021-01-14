@@ -26,13 +26,13 @@ int main(void) {
     bf1();                                      // 1  2  3
     // placeholders::_1、placeholders::_2是占位符
     auto bf2 = std::bind(myFunction02, placeholders::_1, placeholders::_2, 34);
-    //表示第一，第二个参数分别由调用者提供，这里只制定了第三个参数
+    //表示第一，第二个参数分别由调用者提供，这里只指定了第三个参数
     bf2(1, 2);  // 1  2  34
     //直接调用
     std::bind(myFunction02, placeholders::_1, placeholders::_2, 34)(12, 23);
 
     auto bf3 = std::bind(myFunction02, placeholders::_2, placeholders::_1, 300);
-    bf3(1, 2);  // 2	1  300 按照标号位置传递
+    bf3(1, 2);  // 2  1  300 按照标号位置传递
 
     int a = 1;
     int b = 2;
@@ -49,8 +49,7 @@ int main(void) {
     return 0;
 }
 /*
- * (1)std::bind绑定器
- * 也是个类模板，是c++11中新特性
+ * std::bind绑定器也是个类模板，是c++11中新特性
  * std::bind能够将对象及其相关的参数绑定到一起，绑定完毕后可以直接调用，也可以使用std::function保存，在需要的时候调用
  * 格式：
  * std::bind(待绑定的函数对象/函数指针/成员函数指针，绑定参数值1，参数绑定值2，参数绑定....)

@@ -36,6 +36,3 @@ int main(void) {
     system("pause");
     return 0;
 }
-/*
- * (1)auto针对数组和函数的推断
- */
