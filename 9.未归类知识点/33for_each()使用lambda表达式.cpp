@@ -11,12 +11,12 @@ void myFunction(int i) {
 
 int main(void) {
     vector<int> myVector = {10, 20, 30, 40};
-    int iSum = 0;
-    for_each(myVector.begin(), myVector.end(), [&iSum](int value) {
+    int sum = 0;
+    for_each(myVector.begin(), myVector.end(), [&sum](int value) {
         cout << "value=" << value << endl;
-        iSum += value;
+        sum += value;
     });
-    cout << "iSum=" << iSum << endl;  // 100
+    cout << "sum=" << sum << endl;  // 100
     system("pause");
     return 0;
 }

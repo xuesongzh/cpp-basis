@@ -8,12 +8,11 @@ int main(void) {
     auto f1 = [] {};  // f1就相当于一个未命名的类 类型对象
 
     int x = 5;
-    auto f2 = [=]() { return x; };  // f2要生成一个类类型变量，这些捕获的外部变量要在类内部作为成员变量存在。
+    auto f2 = [=]() { return x; };  // f2要生成一个类类型对象，这些捕获的外部变量要在类内部作为成员变量存在。
 
     // lambda和function结合使用例子
     std::function<int(int)> f3 = [](int value) -> int {
-        value++;
-        return value;
+        return value + 1;
     };
     cout << f3(15) << endl;  // 16
 
@@ -31,9 +30,9 @@ int main(void) {
 }
 /*
  * (1)lambda表达式的类型和存储
- * c++11中lambda表达式的类型被成为“闭包类型（closure type）”。
+ * c++11中lambda表达式的类型被称为“闭包类型（closure type）”。
  * 闭包--函数内部的函数（可调用对象），本质上就是lambda表达式创建的运行时期的对象。
- * lambda表达式是一种比较特殊的，匿名的，类 类型（闭包类）的对象。
+ * lambda表达式是一种比较特殊的，匿名的，类类型（闭包类）的对象。
  * 我们也可以认为他是一个带有operator()类型的对象。也就是仿函数（函数对象）
  *
  * 所以我们可以使用std::function  std::bind来保存和调用lambda表达式，每个lambda都会

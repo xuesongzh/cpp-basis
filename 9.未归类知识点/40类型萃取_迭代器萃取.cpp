@@ -16,8 +16,7 @@ void printTraitsInfo(const T& t) {
     cout << "is_void = " << is_void<T>::value << endl;      //类型是否是void
     cout << "is_class = " << is_class<T>::value << endl;    //类型是否是一个class
     cout << "is_object = " << is_object<T>::value << endl;  //类型是否是 一个对象类型
-    cout << "is_pod = " << is_pod<T>::value
-         << endl;                                                                         //是否普通类（只包含成员变量，不包含成员函数）；   POD(plain old data)
+    cout << "is_pod = " << is_pod<T>::value << endl;                                                                         //是否普通类（只包含成员变量，不包含成员函数）；   POD(plain old data)
     cout << "is_default_constructible = " << is_default_constructible<T>::value << endl;  //是否有缺省构造函数
     cout << "is_copy_constructible = " << is_copy_constructible<T>::value << endl;        //是否有拷贝构造函数
     cout << "is_move_constructible = " << is_move_constructible<T>::value << endl;        //是否有移动构造函数
@@ -64,7 +63,7 @@ int main(void) {
 /*
  * (1)类型萃取概述  type traits
  * 属于泛型编程技术，在stl实现源码中，这种类型萃取技术使用比较多。萃取：提取一下信息出来。
- * c++标准库中提出了很多类型萃取接口，这些接口其实都是一些类模板。。
+ * c++标准库中提出了很多类型萃取接口，这些接口其实都是一些类模板。
  * https://en/cppreference.com/w/cpp/types
  *
  * (2)类型萃取范例

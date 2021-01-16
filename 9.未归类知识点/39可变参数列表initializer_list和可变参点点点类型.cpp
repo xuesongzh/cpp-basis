@@ -55,12 +55,11 @@ void funcChar(const char *msg, ...)  //通过msg得到可变参数数量
 int main(void) {
     initializer_list<int> myArray;                         //数组，元素类型是int,空列表，空数组
     initializer_list<int> myArray02 = {1, 2, 3, 4, 4, 5};  // int类型数组
-    //注意一旦初始化完毕，后不能改变，也就是说initializer_list中的元素永远是常量值，不能被改变
+    //注意一旦初始化完毕后不能改变，也就是说initializer_list中的元素永远是常量值，不能被改变
 
     // 2.1begin() end()遍历,size()获取元素的个数
     printValue(myArray);  // 0
-    printValue(
-        {1, 2, 3, 4, 4, 5, 56, 6, 6, 67, 7, 7, 2, 7, 7});  //传递值序列，则必须把序列放在{}中作为一个整体传递  15个元素
+    printValue({1, 2, 3, 4, 4, 5, 56, 6, 6, 67, 7, 7, 2, 7, 7});  //传递值序列，则必须把序列放在{}中作为一个整体传递  15个元素
     //其实c++11将使用{}大括号初始化{初始化列表}作为一种比较通用的初始化方式，可用于很多类型。
 
     //支持迭代器，可以使用范围for语句进行遍历
